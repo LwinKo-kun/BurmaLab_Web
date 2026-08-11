@@ -1,0 +1,74 @@
+<!-- double-pulley.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Double Pulley System (f3a)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Matter.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans p-6">
+    <div class="max-w-5xl mx-auto space-y-6">
+        <nav class="flex items-center justify-between">
+            <a href="index.html" class="text-sm font-semibold text-blue-600 hover:underline">&larr; Back to Modules</a>
+            <h1 class="text-xl font-bold text-slate-900">Advanced Double Pulley Lab (f3a)</h1>
+        </nav>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+            <div class="md:col-span-2 bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col items-center">
+                <div id="canvas-container" class="w-full flex justify-center overflow-hidden rounded-lg border border-slate-100 bg-white"></div>
+                <div class="flex gap-4 mt-4 w-full justify-center">
+                    <button id="pauseBtn" class="px-5 py-2 bg-violet-600 text-white font-medium rounded-lg shadow hover:bg-violet-700 transition">Pause</button>
+                    <button id="resetBtn" class="px-5 py-2 bg-slate-200 text-slate-700 font-medium rounded-lg hover:bg-slate-300 transition">Reset</button>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <div class="bg-slate-900 text-white p-4 rounded-xl shadow-sm">
+                    <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Live Telemetry</h2>
+                    <div class="space-y-2 text-sm font-mono">
+                        <div class="flex justify-between"><span>System Vel:</span> <span id="statVel" class="text-sky-400 font-bold">0.00</span> m/s</div>
+                        <div class="flex justify-between"><span>Acceleration:</span> <span id="statAcc" class="text-sky-400 font-bold">0.00</span> m/s²</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="node_modules/matter-js/build/matter.min.js"></script>
+    <script>
+        const { Engine, Render, Runner, Bodies, Composite, Constraint, Events } = Matter;
+        const width = 700, height = 400;
+        const engine = Engine.create(), world = engine.world;
+        engine.gravity.y = 1;
+        const render = Render.create({ element: document.getElementById('canvas-container'), engine, options: { width, height, wireframes: false, background: '#ffffff' } });
+        Render.run(render);
+        const runner = Runner.create();
+        Runner.run(runner, engine);
+
+        const p1 = Bodies.circle(300, 100, 10, { isStatic: true, render: { fillStyle: '#334155' } });
+        const p2 = Bodies.circle(450, 100, 10, { isStatic: true, render: { fillStyle: '#334155' } });
+        const mLeft = Bodies.rectangle(300, 220, 40, 40, { mass: 4, render: { fillStyle: '#7c3aed' } });
+        const mRight = Bodies.rectangle(450, 280, 40, 40, { mass: 6, render: { fillStyle: '#8b5cf6' } });
+        const stringC = Constraint.create({ bodyA: mLeft, bodyB: mRight, stiffness: 0.9, render: { strokeStyle: '#cbd5e1', lineWidth: 3 } });
+        Composite.add(world, [p1, p2, mLeft, mRight, stringC]);
+
+        let isPaused = false;
+        document.getElementById('pauseBtn').addEventListener('click', () => {
+            isPaused = !isPaused;
+            if (isPaused) { Runner.stop(runner); document.getElementById('pauseBtn').textContent = "Resume"; }
+            else { Runner.start(runner, engine); document.getElementById('pauseBtn').textContent = "Pause"; }
+        });
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            Matter.Body.setPosition(mLeft, { x: 300, y: 220 });
+            Matter.Body.setPosition(mRight, { x: 450, y: 280 });
+            Matter.Body.setVelocity(mLeft, { x: 0, y: 0 });
+            Matter.Body.setVelocity(mRight, { x: 0, y: 0 });
+        });
+
+        Events.on(engine, 'afterUpdate', () => {
+            document.getElementById('statVel').textContent = Math.abs(mRight.velocity.y).toFixed(2);
+            document.getElementById('statAcc').textContent = Math.abs(mRight.acceleration.y).toFixed(2);
+        });
+    </script>
+</body>
+</html>

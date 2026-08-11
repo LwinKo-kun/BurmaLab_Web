@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projectile Motion Simulation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans p-6">
+    <div class="max-w-4xl mx-auto space-y-6">
+        <nav class="flex items-center justify-between">
+            <a href="index.html" class="text-sm font-semibold text-blue-600 hover:underline">&larr; Back to Modules</a>
+            <h1 class="text-xl font-bold text-slate-900">Projectile Motion & Targeting Route Lab</h1>
+        </nav>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+            <div class="md:col-span-2 bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col items-center">
+                <canvas id="simCanvas" width="500" height="300" class="border border-slate-100 rounded-lg bg-white"></canvas>
+                <div class="flex gap-4 mt-4 w-full justify-center">
+                    <button id="fireBtn" class="px-5 py-2 bg-emerald-600 text-white font-medium rounded-lg shadow hover:bg-emerald-700 transition">Fire Projectile</button>
+                    <button id="resetBtn" class="px-5 py-2 bg-slate-200 text-slate-700 font-medium rounded-lg hover:bg-slate-300 transition">Reset</button>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <div class="bg-slate-900 text-white p-4 rounded-xl shadow-sm">
+                    <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Flight & Target Status</h2>
+                    <div class="space-y-2 text-sm font-mono">
+                        <div class="flex justify-between"><span>Max Height:</span> <span id="statHeight" class="text-emerald-400 font-bold">0.0</span> m</div>
+                        <div class="flex justify-between"><span>Range:</span> <span id="statRange" class="text-emerald-400 font-bold">0.0</span> m</div>
+                        <div class="flex justify-between"><span>Hit Status:</span> <span id="statHit" class="text-amber-400 font-bold">Pending</span></div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 space-y-4">
+                    <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Controls</h2>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><label for="v0Input">Initial Speed:</label><span id="v0Val" class="font-semibold text-emerald-600">18 m/s</span></div>
+                        <input type="range" id="v0Input" min="5" max="30" step="1" value="18" class="w-full accent-emerald-600 cursor-pointer">
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><label for="angleInput">Launch Angle:</label><span id="angleVal" class="font-semibold text-emerald-600">45°</span></div>
+                        <input type="range" id="angleInput" min="15" max="75" step="1" value="45" class="w-full accent-emerald-600 cursor-pointer">
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><label for="targetPosInput">Target Distance:</label><span id="targetPosVal" class="font-semibold text-emerald-600">320 m</span></div>
+                        <input type="range" id="targetPosInput" min="200" max="420" step="10" value="320" class="w-full accent-emerald-600 cursor-pointer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/projectile.js"></script>
+</body>
+</html>
