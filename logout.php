@@ -1,7 +1,10 @@
 <?php
-session_start();
-session_unset();
-session_destroy();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once 'includes/auth.php';
+
+logout_user();
+
 header("Location: login.php");
 exit();
-?>

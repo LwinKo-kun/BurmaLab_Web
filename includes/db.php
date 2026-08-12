@@ -1,11 +1,17 @@
 <?php
-$host = 'localhost';
-$db   = 'burmalab'; // or your mysql database name
-$user = 'root';
-$pass = 'Root@123456!';
+/**
+ * Database Connection Setup (BurmaLab-Web)
+ * Uses PDO with MySQL 8.x and strict exception error handling.
+ */
+
+$host    = '127.0.0.1';
+$db      = 'burmalab';
+$user    = 'root';
+$pass    = 'Root@123456!';
 $charset = 'utf8mb4';
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$dsn = "mysql:host={$host};dbname={$db};charset={$charset}";
+
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -15,6 +21,7 @@ $options = [
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (\PDOException $e) {
-    throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    // Log exception details in production; display error for local execution
+    error_log("Database Connection Error: " . $e->getMessage());
+    die("Database Connection Error. Please verify your MySQL credentials and status.");
 }
-?>
