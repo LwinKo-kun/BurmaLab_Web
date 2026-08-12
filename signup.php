@@ -1,25 +1,36 @@
 <?php
+session_start();
 require_once 'includes/db.php';
 
-$error = '';
+if (isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit();
+}
 
+$error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
 
-    if ($password !== $confirm_password) {
-        $error = "Passwords do not match.";
+    if (empty($username) || empty($email) || empty($password)) {
+        $error = "All fields are required.";
     } else {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-        try {
-            $stmt->execute([$username, $email, $hashed_password]);
-            header("Location: login.php");
-            exit();
-        } catch (PDOException $e) {
-            $error = "Registration failed: Email or username already exists.";
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        if ($stmt->fetch()) {
+            $error = "An account with this email already exists.";
+        } else {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $insert = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+            if ($insert->execute([$username, $email, $hashedPassword])) {
+                $_SESSION['user_id'] = $pdo->lastInsertId();
+                $_SESSION['username'] = $username;
+                header("Location: index.php");
+                exit();
+            } else {
+                $error = "Registration failed. Please try again.";
+            }
         }
     }
 }
@@ -28,78 +39,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up - BurmaLab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - BurmaLab</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
 </head>
-<body class="bg-[#F4F4FF] text-slate-800 flex items-center justify-center min-h-screen p-4">
-    <div class="bg-white p-8 rounded-2xl shadow-xl shadow-[#CEB5FF]/20 w-full max-w-md border border-[#D3D3FF]">
-        <h2 class="text-2xl font-bold text-[#5580E9] mb-6 text-center">Create Account</h2>
+<body class="bg-[#F6F6FF] text-slate-800 flex items-center justify-center min-h-screen p-4 selection:bg-indigo-500 selection:text-white">
+    <div class="bg-white border border-[#CEB5EF]/40 shadow-2xl shadow-indigo-100/50 p-8 sm:p-10 rounded-[32px] w-full max-w-md relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        
+        <div class="text-center mb-8 relative z-10">
+            <span class="bg-indigo-600 text-white p-3 rounded-2xl text-base inline-block mb-4 shadow-lg shadow-indigo-200">⚛</span>
+            <h2 class="text-2xl font-black text-slate-900 tracking-tight">Join BurmaLab</h2>
+            <p class="text-slate-500 text-xs sm:text-sm mt-1">Create your student account to access the physics sandbox</p>
+        </div>
         
         <?php if (!empty($error)): ?>
-            <div class="bg-red-50 text-red-600 p-3 rounded-xl mb-4 text-sm text-center border border-red-200">
+            <div class="bg-rose-50 text-rose-600 p-3.5 rounded-2xl mb-6 text-xs text-center border border-rose-200 font-medium">
                 <?php echo $error; ?>
             </div>
         <?php endif; ?>
 
-        <form method="POST" class="space-y-4">
+        <form method="POST" class="space-y-5 relative z-10">
             <div>
-                <label class="block text-sm text-slate-600 mb-1">Username</label>
-                <input type="text" name="username" required class="w-full px-4 py-2 bg-slate-50 border border-[#D3D3FF] rounded-xl focus:outline-none focus:border-[#80A8FF] text-slate-800">
+                <label class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-2">Username</label>
+                <input type="text" name="username" required class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-indigo-600 focus:bg-white text-slate-800 text-sm transition-all">
             </div>
             <div>
-                <label class="block text-sm text-slate-600 mb-1">Email</label>
-                <input type="email" name="email" required class="w-full px-4 py-2 bg-slate-50 border border-[#D3D3FF] rounded-xl focus:outline-none focus:border-[#80A8FF] text-slate-800">
+                <label class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-2">Email</label>
+                <input type="email" name="email" required class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-indigo-600 focus:bg-white text-slate-800 text-sm transition-all">
             </div>
             <div>
-                <label class="block text-sm text-slate-600 mb-1">Password</label>
-                <div class="relative">
-                    <input type="password" name="password" id="password" required class="w-full px-4 py-2 pr-10 bg-slate-50 border border-[#D3D3FF] rounded-xl focus:outline-none focus:border-[#80A8FF] text-slate-800">
-                    <button type="button" onclick="togglePassword('password', 'eyeIcon1')" class="absolute inset-y-0 right-0 px-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none">
-                        <svg id="eyeIcon1" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                    </button>
-                </div>
+                <label class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-2">Password</label>
+                <input type="password" name="password" required class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-indigo-600 focus:bg-white text-slate-800 text-sm transition-all">
             </div>
-            <div>
-                <label class="block text-sm text-slate-600 mb-1">Confirm Password</label>
-                <div class="relative">
-                    <input type="password" name="confirm_password" id="confirm_password" required class="w-full px-4 py-2 pr-10 bg-slate-50 border border-[#D3D3FF] rounded-xl focus:outline-none focus:border-[#80A8FF] text-slate-800">
-                    <button type="button" onclick="togglePassword('confirm_password', 'eyeIcon2')" class="absolute inset-y-0 right-0 px-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none">
-                        <svg id="eyeIcon2" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <button type="submit" class="w-full py-2.5 bg-[#80A8FF] hover:bg-[#5580E9] text-white font-bold rounded-xl transition-colors shadow-md shadow-[#80A8FF]/20">Sign Up</button>
+            <button type="submit" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl transition-all shadow-xl shadow-indigo-200 text-sm active:scale-95">Create Account</button>
         </form>
 
-        <p class="mt-4 text-center text-sm text-slate-500">
-            Already have an account? <a href="login.php" class="text-[#5580E9] hover:underline font-semibold">Login</a>
+        <p class="mt-8 text-center text-xs text-slate-500 relative z-10">
+            Already have an account? <a href="login.php" class="text-indigo-600 hover:underline font-bold">Sign in</a>
         </p>
     </div>
-
-    <script>
-    function togglePassword(fieldId, iconId) {
-        const passwordInput = document.getElementById(fieldId);
-        const eyeIcon = document.getElementById(iconId);
-        
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            eyeIcon.innerHTML = `
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
-            `;
-        } else {
-            passwordInput.type = 'password';
-            eyeIcon.innerHTML = `
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-            `;
-        }
-    }
-    </script>
 </body>
 </html>
