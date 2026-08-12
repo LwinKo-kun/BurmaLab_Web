@@ -1,0 +1,135 @@
+/* Shared premium shell for Matter.js lab simulations */
+body.lab-page {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #F6F6FF;
+    color: #1e293b;
+    min-height: 100vh;
+}
+
+.lab-nav {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(206, 181, 239, 0.4);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 40;
+}
+
+.lab-nav a.brand {
+    font-weight: 800;
+    font-size: 1.25rem;
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-decoration: none;
+}
+
+.lab-nav a.back {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4f46e5;
+    text-decoration: none;
+}
+
+.lab-nav a.back:hover { text-decoration: underline; }
+
+.lab-shell {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.lab-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.lab-badge {
+    font-size: 0.65rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: #4f46e5;
+    background: #eef2ff;
+    border: 1px solid #e0e7ff;
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.5rem;
+}
+
+.lab-card {
+    background: #fff;
+    border: 1px solid rgba(206, 181, 239, 0.4);
+    border-radius: 1.75rem;
+    padding: 1.25rem;
+    box-shadow: 0 4px 24px rgba(99, 102, 241, 0.08);
+}
+
+.lab-telemetry {
+    background: #0f172a;
+    color: #fff;
+    border-radius: 1.25rem;
+    padding: 1rem;
+}
+
+.lab-telemetry h2 {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 0.75rem;
+}
+
+.lab-telemetry .stat-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 0.5rem;
+}
+
+.lab-telemetry .stat-val { color: #34d399; font-weight: 700; }
+
+.lab-controls label { font-size: 0.875rem; }
+
+.lab-btn-primary {
+    padding: 0.625rem 1.25rem;
+    background: #4f46e5;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
+}
+
+.lab-btn-primary:hover { background: #4338ca; }
+
+.lab-btn-secondary {
+    padding: 0.625rem 1.25rem;
+    background: #e2e8f0;
+    color: #334155;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+}
+
+.lab-btn-secondary:hover { background: #cbd5e1; }
+
+.lab-canvas-wrap canvas,
+.lab-canvas-wrap #canvas-container {
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    background: #fff;
+}
+
+input[type="range"].lab-range { accent-color: #4f46e5; width: 100%; cursor: pointer; }
