@@ -12,6 +12,15 @@ require_once __DIR__ . '/includes/progress.php';
 
 $url = isset($_GET['url']) ? trim(filter_var($_GET['url'], FILTER_SANITIZE_URL), '/') : '';
 $is_logged_in = isset($_SESSION['user_id']);
+// Remove optional .php extension and any trailing slash for clean routing
+$url = rtrim($url, '/');
+$url = preg_replace('/\.php$/', '', $url);
+
+$publicRoutes = ['', 'index', 'login', 'signup', 'about'];
+if (!$is_logged_in && !in_array($url, $publicRoutes, true)) {
+    header('Location: /login');
+    exit;
+}
 
 // 1. Dynamic Lab Simulation Router (/lab/{slug})
 if (strpos($url, 'lab/') === 0) {
@@ -21,14 +30,10 @@ if (strpos($url, 'lab/') === 0) {
     }
     
     $lab_slug = basename($url);
-    $lab_path = __DIR__ . "/lab/{$lab_slug}.html";
+    $lab_path = __DIR__ . "/lab/{$lab_slug}.php";
     
     if (file_exists($lab_path)) {
-        $pageTitle = ucfirst(str_replace('-', ' ', $lab_slug)) . ' Lab - BurmaLab';
-        include 'includes/head.php';
-        include 'includes/nav.php';
         include $lab_path;
-        include 'includes/footer.php';
         exit;
     }
 }
@@ -36,15 +41,25 @@ if (strpos($url, 'lab/') === 0) {
 // 2. Page Route Matrix
 $routes = [
     'home'     => 'home.php',
-    'about'    => 'about.php',
     'lab'      => 'lab.php',
-    'theory'   => 'theory.php',
     'login'    => 'login.php',
     'signup'   => 'signup.php',
-    'settings' => 'settings.php',
     'logout'   => 'logout.php',
-    'progress' => 'progress.php'
+    'about'    => 'about.php',
+    'theory'   => 'theory.php',
+    'progress' => 'progress.php',
+    'settings' => 'settings.php',
 ];
+
+// Auto route lab simulation files
+$labFiles = glob(__DIR__.'/lab/*.php');
+foreach ($labFiles as $file) {
+    $slug = 'lab/' . basename($file, '.php');
+    // Store the relative path for include
+    $routes[$slug] = 'lab/' . basename($file);
+}
+
+
 
 // 3. Delegate to internal page if matched
 if (array_key_exists($url, $routes)) {

@@ -12,7 +12,7 @@
 <body class="bg-slate-50 text-slate-800 font-sans p-6">
     <div class="max-w-5xl mx-auto space-y-6">
         <nav class="flex items-center justify-between">
-            <a href="index.html" class="text-sm font-semibold text-blue-600 hover:underline">&larr; Back to Modules</a>
+            <a href="/lab" class="text-sm font-semibold text-blue-600 hover:underline">&larr; Back to Modules</a>
             <h1 class="text-xl font-bold text-slate-900">Advanced Double Pulley Lab (f3a)</h1>
         </nav>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">

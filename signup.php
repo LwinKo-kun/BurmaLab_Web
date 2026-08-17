@@ -6,7 +6,7 @@ require_once 'includes/auth.php';
 require_once 'includes/db.php';
 
 if (is_authenticated()) {
-    header('Location: home.php');
+    header('Location: /home');
     exit();
 }
 
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'email' => $email
                 ]);
 
-                header('Location: home.php');
+                header('Location: /home');
                 exit();
             } catch (\Exception $e) {
                 if ($pdo->inTransaction()) {
@@ -75,7 +75,7 @@ include 'includes/head.php';
     <div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
     <div class="text-center mb-6 sm:mb-8 relative z-10">
-        <a href="index.php" class="bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded-2xl text-base inline-block mb-3 sm:mb-4 shadow-lg shadow-indigo-200 transition-all active:scale-95">⚛</a>
+        <a href="/" class="bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded-2xl text-base inline-block mb-3 sm:mb-4 shadow-lg shadow-indigo-200 transition-all active:scale-95">⚛</a>
         <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Join BurmaLab</h2>
         <p class="text-slate-500 text-xs sm:text-sm mt-1">Create your student account to access the physics sandbox</p>
     </div>
@@ -129,7 +129,7 @@ include 'includes/head.php';
     </form>
 
     <p class="mt-6 sm:mt-8 text-center text-xs sm:text-sm text-slate-500 relative z-10">
-        Already have an account? <a href="login.php" class="text-indigo-600 hover:underline font-bold">Sign in</a>
+        Already have an account? <a href="/login" class="text-indigo-600 hover:underline font-bold">Sign in</a>
     </p>
 </div>
 

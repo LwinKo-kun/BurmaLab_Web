@@ -4,6 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
+require_auth();
 require_once 'includes/curriculum.php';
 require_once 'includes/progress.php';
 

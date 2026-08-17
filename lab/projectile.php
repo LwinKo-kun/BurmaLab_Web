@@ -6,14 +6,14 @@
     <title>Projectile Motion - BurmaLab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/lab.css">
+    <link rel="stylesheet" href="/css/lab.css">
 </head>
 <body class="lab-page">
     <nav class="lab-nav">
-        <a href="landing.php" class="brand">BurmaLab</a>
+        <a href="/" class="brand">BurmaLab</a>
         <div class="flex items-center gap-3">
             <span class="lab-badge">Grade 11 Ch.1</span>
-            <a href="lab.php" class="back">&larr; All Labs</a>
+            <a href="/lab" class="back">&larr; All Labs</a>
         </div>
     </nav>
     <div class="lab-shell space-y-6">
@@ -51,6 +51,6 @@
             </div>
         </div>
     </div>
-    <script src="js/projectile.js"></script>
+    <script src="/js/projectile.js"></script>
 </body>
 </html>

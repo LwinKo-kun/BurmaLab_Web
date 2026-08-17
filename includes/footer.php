@@ -6,10 +6,10 @@
         </div>
         <p class="text-center md:text-left">&copy; <?php echo date('Y'); ?> BurmaLab. Built for Myanmar high school student physics exploration.</p>
         <div class="flex items-center gap-5 text-slate-500 font-semibold">
-            <a href="home.php" class="hover:text-indigo-600 transition-colors">Home</a>
-            <a href="lab.php" class="hover:text-indigo-600 transition-colors">Labs</a>
-            <a href="theory.php" class="hover:text-indigo-600 transition-colors">Theory</a>
-            <a href="about.php" class="hover:text-indigo-600 transition-colors">About</a>
+            <a href="/home" class="hover:text-indigo-600 transition-colors">Home</a>
+            <a href="/lab" class="hover:text-indigo-600 transition-colors">Labs</a>
+            <a href="/theory" class="hover:text-indigo-600 transition-colors">Theory</a>
+            <a href="/about" class="hover:text-indigo-600 transition-colors">About</a>
         </div>
     </div>
 </footer>
