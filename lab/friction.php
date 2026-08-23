@@ -1,56 +1,126 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+// Keep DB and Auth checks to protect the page
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/auth.php';
+require_auth();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Friction Dynamics - BurmaLab</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/lab.css">
+    <!-- Fonts matching your UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #F8F9FA; 
+        }
+        .font-mono { 
+            font-family: 'JetBrains Mono', monospace; 
+        }
+        input[type=range] {
+            accent-color: #4f46e5;
+        }
+    </style>
 </head>
-<body class="lab-page">
-    <nav class="lab-nav">
-        <a href="/" class="brand">BurmaLab</a>
-        <div class="flex items-center gap-3">
-            <span class="lab-badge">Grade 10 Ch.3</span>
-            <a href="/lab" class="back">&larr; All Labs</a>
+<body class="min-h-screen flex flex-col text-slate-800">
+    
+    <!-- Top Navigation -->
+    <nav class="bg-white">
+        <div class="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="/" class="text-indigo-600 font-black text-xl tracking-tight">BurmaLab</a>
+            <div class="flex items-center gap-4">
+                <span class="bg-emerald-50 text-emerald-600 border border-emerald-100 font-bold text-[10px] px-2 py-1 rounded-md uppercase tracking-wide">Grade 10 Ch.3</span>
+                <a href="/lab" class="text-indigo-600 font-semibold text-sm hover:text-indigo-800 transition-colors">&larr; All Labs</a>
+            </div>
         </div>
     </nav>
-    <div class="lab-shell space-y-6">
-        <h1 class="lab-title">Horizontal Friction Lab</h1>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            <div class="md:col-span-2 lab-card lab-canvas-wrap flex flex-col items-center">
-                <canvas id="simCanvas" width="500" height="300"></canvas>
-                <div class="flex gap-4 mt-4 w-full justify-center">
-                    <button id="runBtn" class="lab-btn-primary">Start / Pause</button>
-                    <button id="resetBtn" class="lab-btn-secondary">Reset</button>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow w-full max-w-[1100px] mx-auto px-6 py-8">
+        <h1 class="text-[22px] font-bold text-slate-900 tracking-tight mb-8">Horizontal Friction & Motion</h1>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            
+            <!-- Left Column: Canvas & Buttons -->
+            <div class="lg:col-span-2 bg-white p-8 rounded-[24px] shadow-sm flex flex-col items-center">
+                <canvas id="simCanvas" width="600" height="300" class="w-full max-w-[600px] rounded-xl"></canvas>
+                
+                <div class="flex gap-4 mt-8 w-full justify-center">
+                    <button id="runBtn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-medium text-sm py-2.5 px-6 rounded-xl transition-colors">Start / Pause</button>
+                    <button id="resetBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium text-sm py-2.5 px-6 rounded-xl transition-colors">Reset</button>
                 </div>
             </div>
+            
+            <!-- Right Column: Telemetry & Controls -->
             <div class="space-y-6">
-                <div class="lab-telemetry">
-                    <h2>Live Telemetry</h2>
-                    <div class="stat-row"><span>Velocity:</span> <span id="statVel" class="stat-val">0.00</span> m/s</div>
-                    <div class="stat-row"><span>Acceleration:</span> <span id="statAcc" class="stat-val">0.00</span> m/s²</div>
-                    <div class="stat-row"><span>Friction:</span> <span id="statFriction" class="stat-val">0.0</span> N</div>
+                
+                <!-- Telemetry Card (Dark Theme) -->
+                <div class="bg-[#1a1f2e] p-6 rounded-[24px] shadow-sm text-white">
+                    <h2 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-5">Live Telemetry</h2>
+                    
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-300">Velocity (v):</span>
+                            <div class="font-mono text-sm">
+                                <span id="statVel" class="text-sky-400 font-semibold">0.00</span> <span class="text-slate-500 ml-1">m/s</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-300">Acceleration (a):</span>
+                            <div class="font-mono text-sm">
+                                <span id="statAcc" class="text-emerald-400 font-semibold">0.00</span> <span class="text-slate-500 ml-1">m/s²</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-700/50 mt-2">
+                            <span class="text-sm text-slate-300">Friction Force (f):</span>
+                            <div class="font-mono text-sm">
+                                <span id="statFriction" class="text-amber-400 font-bold text-base">0.0</span> <span class="text-slate-500 ml-1">N</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="lab-card lab-controls space-y-4">
-                    <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Controls</h2>
-                    <div>
-                        <div class="flex justify-between text-sm mb-1"><label for="forceInput">Applied Force:</label><span id="forceVal" class="font-semibold text-indigo-600">15 N</span></div>
-                        <input type="range" id="forceInput" min="0" max="60" step="1" value="15" class="lab-range">
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-sm mb-1"><label for="massInput">Mass:</label><span id="massVal" class="font-semibold text-indigo-600">5.0 kg</span></div>
-                        <input type="range" id="massInput" min="1" max="25" step="0.5" value="5" class="lab-range">
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-sm mb-1"><label for="muInput">Friction (μ):</label><span id="muVal" class="font-semibold text-indigo-600">0.20</span></div>
-                        <input type="range" id="muInput" min="0.0" max="0.8" step="0.05" value="0.2" class="lab-range">
+
+                <!-- Controls Card (Light Theme) -->
+                <div class="bg-white p-6 rounded-[24px] shadow-sm">
+                    <h2 class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-5">Controls</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-sm mb-3">
+                                <label class="text-slate-500" for="forceInput">Applied Force:</label>
+                                <span id="forceVal" class="text-indigo-600 font-medium">15 N</span>
+                            </div>
+                            <input type="range" id="forceInput" min="0" max="60" step="1" value="15" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-3">
+                                <label class="text-slate-500" for="massInput">Mass (m):</label>
+                                <span id="massVal" class="text-indigo-600 font-medium">5.0 kg</span>
+                            </div>
+                            <input type="range" id="massInput" min="1" max="25" step="0.5" value="5" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-3">
+                                <label class="text-slate-500" for="muInput">Friction Coeff (μ):</label>
+                                <span id="muVal" class="text-indigo-600 font-medium">0.20</span>
+                            </div>
+                            <input type="range" id="muInput" min="0.0" max="0.8" step="0.05" value="0.2" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
-    </div>
+    </main>
+    
     <script src="/js/friction.js"></script>
 </body>
 </html>

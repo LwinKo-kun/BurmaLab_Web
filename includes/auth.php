@@ -4,11 +4,13 @@
  */
 
 if (session_status() === PHP_SESSION_NONE) {
-    // Set secure session cookie parameters before starting session
     $cookieParams = session_get_cookie_params();
-    $cookieParams['secure']   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');   // HTTPS only
-    $cookieParams['httponly'] = true;   // Not accessible via JavaScript
-    $cookieParams['samesite'] = 'Lax'; // Prevent CSRF
+    $cookieParams['lifetime'] = 0;
+    $cookieParams['path']     = '/'; // Crucial for clean routing across subdirectories/routes
+    $cookieParams['domain']   = '';
+    $cookieParams['secure']   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+    $cookieParams['httponly'] = true;
+    $cookieParams['samesite'] = 'Lax';
     session_set_cookie_params($cookieParams);
     session_start();
 }

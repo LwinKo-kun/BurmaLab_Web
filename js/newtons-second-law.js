@@ -1,138 +1,146 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const canvas = document.getElementById('simCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+const canvas = document.getElementById('simCanvas');
+const ctx = canvas.getContext('2d');
 
-    const massInput = document.getElementById('massInput') || { value: 5 };
-    const forceInput = document.getElementById('forceInput') || { value: 20 };
-    const massVal = document.getElementById('massVal');
-    const forceVal = document.getElementById('forceVal');
-    const statAcc = document.getElementById('statAcc');
-    const statVel = document.getElementById('statVel');
+let isRunning = false;
+let mass = 5;
+let force = 20;
+let posX = 50;
+let velocity = 0;
+const scale = 10; // 1 meter = 10 pixels for visual rendering
 
-    const startBtn = document.getElementById('startBtn');
-    const resetBtn = document.getElementById('resetBtn');
+const massInput = document.getElementById('massInput');
+const forceInput = document.getElementById('forceInput');
 
-    let mass = parseFloat(massInput.value);
-    let force = parseFloat(forceInput.value);
+function updateLabels() {
+    document.getElementById('massVal').textContent = mass + " kg";
+    document.getElementById('forceVal').textContent = force + " N";
+    
+    document.getElementById('statMass').textContent = mass.toFixed(1);
+    document.getElementById('statForce').textContent = force.toFixed(1);
+    
+    // Update theoretical acceleration immediately when sliders move
+    const acc = force / mass;
+    document.getElementById('statAcc').textContent = acc.toFixed(2);
+}
 
-    let posX = 50;
-    let velocity = 0;
-    let isRunning = false;
-    let animId;
+massInput.addEventListener('input', (e) => { mass = parseFloat(e.target.value); updateLabels(); draw(); });
+forceInput.addEventListener('input', (e) => { force = parseFloat(e.target.value); updateLabels(); draw(); });
 
-    function resize() {
-        canvas.width = canvas.parentElement.clientWidth;
-        canvas.height = canvas.width * 0.5625;
-        draw();
+document.getElementById('startBtn').addEventListener('click', () => { 
+    if (posX < canvas.width - 100) isRunning = true; 
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+    isRunning = false;
+    posX = 50;
+    velocity = 0;
+    document.getElementById('statVel').textContent = "0.00";
+    draw();
+});
+
+function computePhysics(dt) {
+    if (isRunning) {
+        const acceleration = force / mass;
+        
+        velocity += acceleration * dt;
+        posX += velocity * scale * dt;
+
+        document.getElementById('statVel').textContent = velocity.toFixed(2);
+        document.getElementById('statAcc').textContent = acceleration.toFixed(2);
+
+        // Stop at the edge of the canvas
+        if (posX >= canvas.width - 90) {
+            isRunning = false;
+            posX = canvas.width - 90;
+        }
     }
-    window.addEventListener('resize', resize);
+}
 
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const groundY = canvas.height - 40;
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const groundY = 240;
 
-        // Ground Track
-        ctx.fillStyle = '#1E293B';
-        ctx.fillRect(0, groundY, canvas.width, 40);
-        ctx.strokeStyle = '#334155';
-        ctx.lineWidth = 2;
+    // Draw Ground Track
+    ctx.fillStyle = '#f1f5f9';
+    ctx.fillRect(0, groundY, canvas.width, canvas.height - groundY);
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(0, groundY);
+    ctx.lineTo(canvas.width, groundY);
+    ctx.stroke();
+
+    // Draw Distance Markers
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '10px JetBrains Mono';
+    for(let i = 50; i < canvas.width; i += 100) {
         ctx.beginPath();
-        ctx.moveTo(0, groundY);
-        ctx.lineTo(canvas.width, groundY);
+        ctx.moveTo(i, groundY);
+        ctx.lineTo(i, groundY + 10);
+        ctx.stroke();
+        ctx.fillText(`${(i-50)/scale}m`, i - 10, groundY + 22);
+    }
+
+    // Draw Sliding Block
+    const blockWidth = 70;
+    const blockHeight = 50;
+    const blockY = groundY - blockHeight;
+
+    ctx.fillStyle = '#0ea5e9'; // Sky Blue
+    ctx.fillRect(posX, blockY, blockWidth, blockHeight);
+    ctx.strokeStyle = '#0284c7';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(posX, blockY, blockWidth, blockHeight);
+
+    // Block Label (Mass)
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 14px Plus Jakarta Sans';
+    ctx.textAlign = 'center';
+    ctx.fillText(`${mass} kg`, posX + blockWidth / 2, blockY + 30);
+
+    // Draw Force Vector Arrow
+    if (force > 0 && isRunning) {
+        const arrowStartX = posX + blockWidth;
+        const arrowStartY = blockY + blockHeight / 2;
+        // Cap arrow length visually so it doesn't break UI
+        const arrowLength = Math.min(150, 40 + force * 1.5);
+
+        ctx.strokeStyle = '#f43f5e'; // Rose
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(arrowStartX, arrowStartY);
+        ctx.lineTo(arrowStartX + arrowLength, arrowStartY);
         ctx.stroke();
 
-        // Sliding Block
-        const blockWidth = 70;
-        const blockHeight = 50;
-        const blockY = groundY - blockHeight;
+        // Arrowhead
+        ctx.fillStyle = '#f43f5e';
+        ctx.beginPath();
+        ctx.moveTo(arrowStartX + arrowLength, arrowStartY - 8);
+        ctx.lineTo(arrowStartX + arrowLength + 12, arrowStartY);
+        ctx.lineTo(arrowStartX + arrowLength, arrowStartY + 8);
+        ctx.fill();
 
-        ctx.fillStyle = '#38BDF8';
-        ctx.fillRect(posX, blockY, blockWidth, blockHeight);
-        ctx.strokeStyle = '#0284C7';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(posX, blockY, blockWidth, blockHeight);
-
-        // Label
-        ctx.fillStyle = '#0F172A';
-        ctx.font = 'bold 14px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText(`${mass} kg`, posX + blockWidth / 2, blockY + 30);
-
-        // Force Vector Arrow
-        if (force > 0) {
-            const arrowStartX = posX + blockWidth;
-            const arrowStartY = blockY + blockHeight / 2;
-            const arrowLength = Math.min(150, force * 3);
-
-            ctx.strokeStyle = '#F43F5E';
-            ctx.lineWidth = 4;
-            ctx.beginPath();
-            ctx.moveTo(arrowStartX, arrowStartY);
-            ctx.lineTo(arrowStartX + arrowLength, arrowStartY);
-            ctx.stroke();
-
-            // Arrowhead
-            ctx.fillStyle = '#F43F5E';
-            ctx.beginPath();
-            ctx.moveTo(arrowStartX + arrowLength, arrowStartY - 8);
-            ctx.lineTo(arrowStartX + arrowLength + 12, arrowStartY);
-            ctx.lineTo(arrowStartX + arrowLength, arrowStartY + 8);
-            ctx.fill();
-
-            // Force text
-            ctx.fillStyle = '#FB7185';
-            ctx.font = 'bold 12px sans-serif';
-            ctx.fillText(`F = ${force} N`, arrowStartX + arrowLength / 2, arrowStartY - 10);
-        }
+        // Force Label
+        ctx.fillStyle = '#e11d48';
+        ctx.font = 'bold 12px Plus Jakarta Sans';
+        ctx.fillText(`F = ${force} N`, arrowStartX + arrowLength / 2, arrowStartY - 10);
     }
+}
 
-    function animate() {
-        const acceleration = force / mass;
-        if (statAcc) statAcc.textContent = `${acceleration.toFixed(2)} m/s²`;
-
-        if (isRunning) {
-            velocity += acceleration * 0.016;
-            posX += velocity * 2;
-
-            if (statVel) statVel.textContent = `${velocity.toFixed(2)} m/s`;
-
-            if (posX >= canvas.width - 120) {
-                isRunning = false;
-            }
-        }
-
+let lastTime = performance.now();
+function loop(time) {
+    const dt = (time - lastTime) / 1000;
+    lastTime = time;
+    
+    // Cap dt to prevent physics jumps if tab is inactive
+    if (dt < 0.1) {
+        computePhysics(dt);
         draw();
-        if (isRunning) animId = requestAnimationFrame(animate);
     }
+    requestAnimationFrame(loop);
+}
 
-    if (massInput) massInput.addEventListener('input', (e) => {
-        mass = parseFloat(e.target.value);
-        if (massVal) massVal.textContent = `${mass} kg`;
-        draw();
-    });
-
-    if (forceInput) forceInput.addEventListener('input', (e) => {
-        force = parseFloat(e.target.value);
-        if (forceVal) forceVal.textContent = `${force} N`;
-        draw();
-    });
-
-    if (startBtn) startBtn.addEventListener('click', () => {
-        if (!isRunning) {
-            isRunning = true;
-            animate();
-        }
-    });
-
-    if (resetBtn) resetBtn.addEventListener('click', () => {
-        isRunning = false;
-        cancelAnimationFrame(animId);
-        posX = 50;
-        velocity = 0;
-        if (statVel) statVel.textContent = '0.00 m/s';
-        draw();
-    });
-
-    resize();
-});
+// Initial Setup
+updateLabels();
+draw();
+requestAnimationFrame(loop);

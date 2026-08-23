@@ -1,3 +1,11 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/auth.php';
+require_auth();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,54 +13,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Momentum & Collisions - BurmaLab</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/lab.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8F9FA; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        input[type=range] { accent-color: #4f46e5; }
+    </style>
 </head>
-<body class="lab-page">
-    <nav class="lab-nav">
-        <a href="/" class="brand">BurmaLab</a>
-        <div class="flex items-center gap-3">
-            <span class="lab-badge">Grade 10 Ch.3</span>
-            <a href="/lab" class="back">&larr; All Labs</a>
+<body class="min-h-screen flex flex-col text-slate-800">
+    
+    <nav class="bg-white">
+        <div class="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="/" class="text-indigo-600 font-black text-xl tracking-tight">BurmaLab</a>
+            <div class="flex items-center gap-4">
+                <span class="bg-emerald-50 text-emerald-600 border border-emerald-100 font-bold text-[10px] px-2 py-1 rounded-md uppercase tracking-wide">Grade 10 Ch.3</span>
+                <a href="/lab" class="text-indigo-600 font-semibold text-sm hover:text-indigo-800 transition-colors">&larr; All Labs</a>
+            </div>
         </div>
     </nav>
-    <div class="lab-shell space-y-6">
-        <h1 class="lab-title">Momentum & Collisions Lab</h1>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            <div class="md:col-span-2 lab-card lab-canvas-wrap flex flex-col items-center">
-                <canvas id="simCanvas" width="500" height="300"></canvas>
-                <div class="flex gap-4 mt-4 w-full justify-center">
-                    <button id="runBtn" class="lab-btn-primary">Trigger Impact</button>
-                    <button id="resetBtn" class="lab-btn-secondary">Reset</button>
+
+    <main class="flex-grow w-full max-w-[1100px] mx-auto px-6 py-8">
+        <h1 class="text-[22px] font-bold text-slate-900 tracking-tight mb-8">Momentum & Collisions Lab</h1>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            
+            <div class="lg:col-span-2 bg-white p-8 rounded-[24px] shadow-sm flex flex-col items-center">
+                <canvas id="simCanvas" width="600" height="300" class="w-full max-w-[600px] rounded-xl"></canvas>
+                <div class="flex gap-4 mt-8 w-full justify-center">
+                    <button id="runBtn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-medium text-sm py-2.5 px-6 rounded-xl transition-colors">Trigger Impact</button>
+                    <button id="resetBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium text-sm py-2.5 px-6 rounded-xl transition-colors">Reset Setup</button>
                 </div>
             </div>
+            
             <div class="space-y-6">
-                <div class="lab-telemetry">
-                    <h2>System Momentum</h2>
-                    <div class="stat-row"><span>Total P:</span> <span id="statMom" class="stat-val">0.00</span> kg·m/s</div>
-                </div>
-                <div class="lab-card lab-controls space-y-4">
-                    <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Controls</h2>
-                    <div>
-                        <div class="flex justify-between text-sm mb-1"><label for="m1Input">Mass 1 (m₁):</label><span id="m1Val" class="font-semibold text-indigo-600">2.0 kg</span></div>
-                        <input type="range" id="m1Input" min="0.5" max="10" step="0.5" value="2" class="lab-range">
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-sm mb-1"><label for="v1Input">Velocity 1 (v₁):</label><span id="v1Val" class="font-semibold text-indigo-600">4.0 m/s</span></div>
-                        <input type="range" id="v1Input" min="1" max="10" step="0.5" value="4" class="lab-range">
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-sm mb-1"><label for="m2Input">Mass 2 (m₂):</label><span id="m2Val" class="font-semibold text-indigo-600">3.0 kg</span></div>
-                        <input type="range" id="m2Input" min="0.5" max="10" step="0.5" value="3" class="lab-range">
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-sm mb-1"><label for="eInput">Elasticity (e):</label><span id="eVal" class="font-semibold text-indigo-600">1.0</span></div>
-                        <input type="range" id="eInput" min="0.0" max="1.0" step="0.1" value="1.0" class="lab-range">
+                
+                <div class="bg-[#1a1f2e] p-6 rounded-[24px] shadow-sm text-white">
+                    <h2 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-5">System Momentum</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center pb-3 border-b border-slate-700/50">
+                            <span class="text-sm text-slate-300">Total Momentum (P):</span>
+                            <div class="font-mono text-sm"><span id="statMom" class="text-amber-400 font-bold text-base">0.00</span> <span class="text-slate-500 ml-1">kg·m/s</span></div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-300">Velocity 1 (v₁):</span>
+                            <div class="font-mono text-sm"><span id="statV1" class="text-rose-400 font-semibold">0.0</span> <span class="text-slate-500 ml-1">m/s</span></div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-300">Velocity 2 (v₂):</span>
+                            <div class="font-mono text-sm"><span id="statV2" class="text-sky-400 font-semibold">0.0</span> <span class="text-slate-500 ml-1">m/s</span></div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="bg-white p-6 rounded-[24px] shadow-sm">
+                    <h2 class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-5">Controls</h2>
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><label class="text-slate-500" for="m1Input">Mass 1 (m₁):</label><span id="m1Val" class="text-rose-500 font-medium">2.0 kg</span></div>
+                            <input type="range" id="m1Input" min="0.5" max="10" step="0.5" value="2" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><label class="text-slate-500" for="v1Input">Velocity 1 (v₁):</label><span id="v1Val" class="text-rose-500 font-medium">4.0 m/s</span></div>
+                            <input type="range" id="v1Input" min="1" max="10" step="0.5" value="4" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><label class="text-slate-500" for="m2Input">Mass 2 (m₂):</label><span id="m2Val" class="text-sky-500 font-medium">3.0 kg</span></div>
+                            <input type="range" id="m2Input" min="0.5" max="10" step="0.5" value="3" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><label class="text-slate-500" for="eInput">Elasticity (e):</label><span id="eVal" class="text-indigo-600 font-medium">1.0</span></div>
+                            <input type="range" id="eInput" min="0.0" max="1.0" step="0.1" value="1.0" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
+    </main>
     <script src="/js/collisions.js"></script>
 </body>
 </html>

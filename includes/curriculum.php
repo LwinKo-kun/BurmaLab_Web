@@ -4,43 +4,99 @@
 // 1. Active Labs List
 $activeLabs = [
     [
-        'id' => 'projectile',
-        'title' => 'Projectile Motion',
-        'href' => '/lab/projectile',
-        'icon' => '🚀',
-        'badge' => 'Grade 11',
-        'desc' => 'Analyze parabolic trajectories, launch angles, and maximum range.'
+        'id' => 'measurement',
+        'title' => 'Units & Measurement',
+        'href' => '/lab/measurement',
+        'icon' => '📏',
+        'badge' => 'Grade 10 Ch.1',
+        'desc' => 'Virtual Vernier calipers and micrometer screw gauge simulation.'
     ],
     [
-        'id' => 'incline',
-        'title' => 'Inclined Plane',
-        'href' => '/lab/incline',
-        'icon' => '📐',
-        'badge' => 'Grade 10',
-        'desc' => 'Resolve gravity into normal and parallel force components.'
-    ],
-    [
-        'id' => 'friction',
-        'title' => 'Friction & Motion',
-        'href' => '/lab/friction',
-        'icon' => '🛷',
-        'badge' => 'Grade 10',
-        'desc' => 'Experiment with static and kinetic coefficients of friction.'
+        'id' => 'kinematics',
+        'title' => 'Kinematic Motion',
+        'href' => '/lab/kinematics',
+        'icon' => '📈',
+        'badge' => 'Grade 10 Ch.2',
+        'desc' => 'Interactive motion graphs plotting position, velocity, and time.'
     ],
     [
         'id' => 'newtons-second-law',
         'title' => "Newton's Second Law",
         'href' => '/lab/newtons-second-law',
         'icon' => '⚡',
-        'badge' => 'Grade 10',
+        'badge' => 'Grade 10 Ch.3',
         'desc' => 'Verify the direct relation between net force, mass, and acceleration (F = ma).'
+    ],
+    [
+        'id' => 'friction',
+        'title' => 'Friction & Motion',
+        'href' => '/lab/friction',
+        'icon' => '🛷',
+        'badge' => 'Grade 10 Ch.3',
+        'desc' => 'Experiment with static and kinetic coefficients of friction.'
+    ],
+    [
+        'id' => 'incline',
+        'title' => 'Inclined Plane',
+        'href' => '/lab/incline',
+        'icon' => '📐',
+        'badge' => 'Grade 10 Ch.3',
+        'desc' => 'Resolve gravity into normal and parallel force components.'
+    ],
+    [
+        'id' => 'collisions',
+        'title' => 'Momentum & Collisions',
+        'href' => '/lab/collisions',
+        'icon' => '💥',
+        'badge' => 'Grade 10 Ch.3',
+        'desc' => 'Investigate elastic and inelastic collisions and conservation of momentum.'
+    ],
+    [
+        'id' => 'work-energy',
+        'title' => 'Conservation of Energy',
+        'href' => '/lab/work-energy',
+        'icon' => '🎢',
+        'badge' => 'Grade 10 Ch.5',
+        'desc' => 'A pendulum simulation tracking kinetic and potential energy conversions.'
+    ],
+    [
+        'id' => 'projectile',
+        'title' => 'Projectile Motion',
+        'href' => '/lab/projectile',
+        'icon' => '🚀',
+        'badge' => 'Grade 11 Ch.1',
+        'desc' => 'Analyze parabolic trajectories, launch angles, and maximum range.'
+    ],
+    [
+        'id' => 'circular-motion',
+        'title' => 'Uniform Circular Motion',
+        'href' => '/lab/circular-motion',
+        'icon' => '🔄',
+        'badge' => 'Grade 11 Ch.1',
+        'desc' => 'Visualize velocity vectors, centripetal force, and orbital periods.'
+    ],
+    [
+        'id' => 'torque',
+        'title' => 'Torque & Equilibrium',
+        'href' => '/lab/torque',
+        'icon' => '⚖️',
+        'badge' => 'Grade 11 Ch.2',
+        'desc' => 'Balance opposing weights on a fulcrum to calculate net rotational torque.'
+    ],
+    [
+        'id' => 'buoyancy',
+        'title' => 'Archimedes\' Principle',
+        'href' => '/lab/buoyancy',
+        'icon' => '⚓',
+        'badge' => 'Grade 11 Ch.3',
+        'desc' => 'Explore buoyant force, apparent weight, and fluid density.'
     ],
     [
         'id' => 'atwood-incline',
         'title' => 'Atwood Machine on Incline',
         'href' => '/lab/atwood-incline',
         'icon' => '⚙️',
-        'badge' => 'Grade 11',
+        'badge' => 'Grade 11 Ch.2',
         'desc' => 'Calculate system acceleration with connected masses over pulleys.'
     ],
     [
@@ -48,16 +104,32 @@ $activeLabs = [
         'title' => 'Double Pulley System',
         'href' => '/lab/double-pulley',
         'icon' => '🏗️',
-        'badge' => 'Grade 11',
+        'badge' => 'Grade 11 Ch.2',
         'desc' => 'Determine mechanical advantage and tension distribution.'
     ],
     [
-        'id' => 'collisions',
-        'title' => 'Momentum & Collisions',
-        'href' => '/lab/collisions',
-        'icon' => '💥',
-        'badge' => 'Grade 12',
-        'desc' => 'Investigate elastic and inelastic collisions in 1D space.'
+    'id' => 'springs',
+    'title' => 'Hooke\'s Law & Springs',
+    'href' => '/lab/springs',
+    'icon' => '〰️',
+    'badge' => 'Grade 11 Ch.4',
+    'desc' => 'Simulate spring constants, displacement, and elastic potential energy.'
+    ],
+    [
+    'id' => 'banked-curves',
+    'title' => 'Banked Curves',
+    'href' => '/lab/banked-curves',
+    'icon' => '🏎️',
+    'badge' => 'Grade 12 Ch.2',
+    'desc' => 'Analyze normal and friction forces on a vehicle banking a turn.'
+    ],
+    [
+    'id' => 'fluids',
+    'title' => 'Fluid Dynamics',
+    'href' => '/lab/fluids',
+    'icon' => '💧',
+    'badge' => 'Grade 12 Ch.3',
+    'desc' => 'Visualize continuity equations and Bernoulli pressure drops.'
     ]
 ];
 
@@ -68,7 +140,7 @@ $theoryNotes = [
         'color' => 'Grade 10',
         'topics' => [
             [
-                'title' => 'Kinematics & Motion',
+                'title' => 'Ch 2: Motion Equations',
                 'formulas' => [
                     'v = u + at',
                     's = ut + ½at²',
@@ -77,12 +149,21 @@ $theoryNotes = [
                 ]
             ],
             [
-                'title' => "Newton's Laws & Friction",
+                'title' => "Ch 3: Forces & Momentum",
                 'formulas' => [
-                    'F_net = ma',
+                    'F = ma',
                     'W = mg',
                     'f_s ≤ μ_s N',
-                    'f_k = μ_k N'
+                    'p = mv',
+                    'm₁u₁ + m₂u₂ = m₁v₁ + m₂v₂'
+                ]
+            ],
+            [
+                'title' => "Ch 5: Work & Energy",
+                'formulas' => [
+                    'W = Fs',
+                    'E_k = ½mv²',
+                    'E_p = mgh'
                 ]
             ]
         ]
@@ -92,21 +173,27 @@ $theoryNotes = [
         'color' => 'Grade 11',
         'topics' => [
             [
-                'title' => 'Projectile Motion',
+                'title' => 'Ch 1: Motion in a Plane',
                 'formulas' => [
-                    'x = (v₀ cos θ)t',
-                    'y = (v₀ sin θ)t - ½gt²',
+                    'v_x = v₀ cos θ',
+                    'v_y = v₀ sin θ - gt',
                     'R = (v₀² sin 2θ) / g',
-                    'H = (v₀² sin² θ) / (2g)'
+                    'a_c = v² / r'
                 ]
             ],
             [
-                'title' => 'Work, Energy & Pulleys',
+                'title' => 'Ch 2: Rotational Dynamics',
                 'formulas' => [
-                    'W = F d cos θ',
-                    'K = ½mv²',
-                    'U = mgh',
-                    'a = (m₂ - m₁)g / (m₁ + m₂)'
+                    'τ = F r sin θ',
+                    'L = I ω',
+                    'Στ = 0 (Equilibrium)'
+                ]
+            ],
+            [
+                'title' => 'Ch 3: Pressure',
+                'formulas' => [
+                    'P = ρgh',
+                    'F_B = ρ_f V g (Archimedes)'
                 ]
             ]
         ]
@@ -116,12 +203,19 @@ $theoryNotes = [
         'color' => 'Grade 12',
         'topics' => [
             [
-                'title' => 'Momentum & Collisions',
+                'title' => 'Ch 1: Rotational Motion',
                 'formulas' => [
-                    'p = mv',
-                    'J = F Δt = Δp',
-                    'm₁u₁ + m₂u₂ = m₁v₁ + m₂v₂',
-                    'e = (v₂ - v₁) / (u₁ - u₂)'
+                    'ω = ω₀ + αt',
+                    'θ = ω₀t + ½αt²',
+                    'v = rω',
+                    'a_c = rω²'
+                ]
+            ],
+            [
+                'title' => 'Ch 3: Fluid Dynamics',
+                'formulas' => [
+                    'A₁v₁ = A₂v₂ (Continuity)',
+                    'P + ½ρv² + ρgh = constant'
                 ]
             ]
         ]
@@ -132,62 +226,82 @@ $theoryNotes = [
 $curriculum = [
     [
         'label' => 'Grade 10 Mechanics',
-        'chapters' => '1 - 3',
+        'chapters' => '1 - 5',
         'color' => 'Grade 10',
         'items' => [
             [
                 'num' => 1,
-                'title' => 'Introduction to Motion',
-                'desc' => 'Understanding displacement, velocity, and acceleration vectors.'
+                'title' => 'Units and Measurements',
+                'desc' => 'Basic and derived units, prefixes, and measurement of length, mass, and time.'
             ],
             [
                 'num' => 2,
-                'title' => 'Forces and Newton’s Laws',
-                'desc' => 'Analyzing forces, inertia, mass, and acceleration relationships.'
+                'title' => 'Motion',
+                'desc' => 'Vectors, describing motion, equations of motion, and motion graphs.'
             ],
             [
                 'num' => 3,
-                'title' => 'Friction & Inclined Planes',
-                'desc' => 'Static and kinetic friction force components on inclined surfaces.'
-            ]
-        ]
-    ],
-    [
-        'label' => 'Grade 11 Advanced Mechanics',
-        'chapters' => '4 - 6',
-        'color' => 'Grade 11',
-        'items' => [
+                'title' => 'Forces',
+                'desc' => 'Newton\'s laws, gravitation, mass, weight, free fall, and conservation of momentum.'
+            ],
             [
                 'num' => 4,
-                'title' => '2D Kinematics & Projectiles',
-                'desc' => 'Decomposing 2D motion vectors into horizontal and vertical components.'
+                'title' => 'Pressure',
+                'desc' => 'Density, relative density, and pressure applications.'
             ],
             [
                 'num' => 5,
-                'title' => 'Connected Systems & Tension',
-                'desc' => 'Pulleys, Atwood machines, and tension distribution across masses.'
-            ],
-            [
-                'num' => 6,
-                'title' => 'Work, Power & Energy',
-                'desc' => 'Conservation of energy, mechanical work, and power output.'
+                'title' => 'Work and Energy',
+                'desc' => 'Mechanical work, potential energy, kinetic energy, and their conservation.'
             ]
         ]
     ],
     [
-        'label' => 'Grade 12 Impulse & Dynamics',
-        'chapters' => '7 - 8',
+        'label' => 'Grade 11 Mechanics',
+        'chapters' => '1 - 4',
+        'color' => 'Grade 11',
+        'items' => [
+            [
+                'num' => 1,
+                'title' => 'Motion in a Plane',
+                'desc' => 'Two-dimensional motion, projectile trajectories, and uniform circular motion.'
+            ],
+            [
+                'num' => 2,
+                'title' => 'Rotational Dynamics',
+                'desc' => 'Scalar/vector products, torque, moment of inertia, and angular momentum.'
+            ],
+            [
+                'num' => 3,
+                'title' => 'Pressure (Advanced)',
+                'desc' => 'Atmospheric pressure, barometers, manometers, Archimedes\' Principle, and Pascal\'s Law.'
+            ],
+            [
+                'num' => 4,
+                'title' => 'Power and Efficiency',
+                'desc' => 'Power units, efficiency ratios, and stretching of coiled springs.'
+            ]
+        ]
+    ],
+    [
+        'label' => 'Grade 12 Mechanics',
+        'chapters' => '1 - 3',
         'color' => 'Grade 12',
         'items' => [
             [
-                'num' => 7,
-                'title' => 'Momentum & Impulse',
-                'desc' => 'Linear momentum conservation laws and force-time impulse curves.'
+                'num' => 1,
+                'title' => 'Rotational Motion',
+                'desc' => 'Constant angular acceleration, linear vs angular quantities, and centripetal acceleration.'
             ],
             [
-                'num' => 8,
-                'title' => 'Elastic & Inelastic Collisions',
-                'desc' => 'Calculating post-impact velocities using coefficients of restitution.'
+                'num' => 2,
+                'title' => 'Forces in Circular Motion',
+                'desc' => 'Forces causing centripetal acceleration, and centrifugal force frames.'
+            ],
+            [
+                'num' => 3,
+                'title' => 'Fluid Dynamics',
+                'desc' => 'Laminar/turbulent flow, Bernoulli\'s equation, viscosity, and surface tension.'
             ]
         ]
     ]

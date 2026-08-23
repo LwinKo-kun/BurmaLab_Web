@@ -25,27 +25,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user && password_verify($password, $user['password'])) {
             login_user($user);
 
-            // Update user streak & last login date
+            // Update user streak & last login date safely matching signup logic
             $today = date('Y-m-d');
             $streakStmt = $pdo->prepare('SELECT last_login_date, current_streak FROM user_streaks WHERE user_id = ?');
             $streakStmt->execute([$user['id']]);
             $streak = $streakStmt->fetch();
 
             if (!$streak) {
-                // Initialize streak if record missing
                 $initStreak = $pdo->prepare('INSERT INTO user_streaks (user_id, current_streak, last_login_date, total_xp) VALUES (?, 1, ?, 10)');
                 $initStreak->execute([$user['id'], $today]);
-            } else if ($streak['last_login_date'] !== $today) {
+            } else if (!empty($streak['last_login_date']) && $streak['last_login_date'] !== $today) {
                 $lastLogin = new DateTime($streak['last_login_date']);
                 $currentDate = new DateTime($today);
                 $interval = $lastLogin->diff($currentDate)->days;
 
                 if ($interval === 1) {
-                    // Consecutive day streak
                     $updateStreak = $pdo->prepare('UPDATE user_streaks SET current_streak = current_streak + 1, last_login_date = ?, total_xp = total_xp + 10 WHERE user_id = ?');
                     $updateStreak->execute([$today, $user['id']]);
                 } else if ($interval > 1) {
-                    // Reset streak
                     $updateStreak = $pdo->prepare('UPDATE user_streaks SET current_streak = 1, last_login_date = ? WHERE user_id = ?');
                     $updateStreak->execute([$today, $user['id']]);
                 }
@@ -79,7 +76,7 @@ include 'includes/head.php';
         </div>
     <?php endif; ?>
 
-    <form method="POST" class="space-y-4 sm:space-y-5 relative z-10" autocomplete="on">
+    <form method="POST" action="/login" class="space-y-4 sm:space-y-5 relative z-10" autocomplete="on">
         <div>
             <label for="email" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-2">Email Address</label>
             <input type="email" id="email" name="email" required autocomplete="email" placeholder="student@example.com" value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>" class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-indigo-600 focus:bg-white focus:ring-2 focus:ring-indigo-500/20 text-slate-800 text-base sm:text-sm transition-all">

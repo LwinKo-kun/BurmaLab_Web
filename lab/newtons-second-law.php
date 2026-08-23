@@ -1,72 +1,127 @@
-<!-- newtons-second-law.html -->
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+// Keep DB and Auth checks to protect the page
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/auth.php';
+require_auth();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart & Hanging Mass Lab (f5)</title>
+    <title>Newton's Second Law - BurmaLab</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Matter.js CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <!-- Fonts matching your UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #F8F9FA; /* Light gray background matching screenshot */
+        }
+        .font-mono { 
+            font-family: 'JetBrains Mono', monospace; 
+        }
+        /* Custom slider styling to match the screenshot */
+        input[type=range] {
+            accent-color: #4f46e5;
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans p-6">
-    <div class="max-w-5xl mx-auto space-y-6">
-        <nav class="flex items-center justify-between">
-            <a href="/lab" class="text-sm font-semibold text-blue-600 hover:underline">&larr; Back to Modules</a>
-            <h1 class="text-xl font-bold text-slate-900">Newton's Second Law Lab (f5)</h1>
-        </nav>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            <div class="md:col-span-2 bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col items-center">
-                <div id="canvas-container" class="w-full flex justify-center overflow-hidden rounded-lg border border-slate-100 bg-white"></div>
-                <div class="flex gap-4 mt-4 w-full justify-center">
-                    <button id="pauseBtn" class="px-5 py-2 bg-amber-600 text-white font-medium rounded-lg shadow hover:bg-amber-700 transition">Pause</button>
-                    <button id="resetBtn" class="px-5 py-2 bg-slate-200 text-slate-700 font-medium rounded-lg hover:bg-slate-300 transition">Reset</button>
-                </div>
-            </div>
-            <div class="space-y-6">
-                <div class="bg-slate-900 text-white p-4 rounded-xl shadow-sm">
-                    <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Telemetry</h2>
-                    <div class="space-y-2 text-sm font-mono">
-                        <div class="flex justify-between"><span>Acceleration:</span> <span id="statAcc" class="text-amber-400 font-bold">0.00</span> m/s²</div>
-                    </div>
-                </div>
+<body class="min-h-screen flex flex-col text-slate-800">
+    
+    <!-- Top Navigation (Standalone) -->
+    <nav class="bg-white">
+        <div class="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="/" class="text-indigo-600 font-black text-xl tracking-tight">BurmaLab</a>
+            <div class="flex items-center gap-4">
+                <span class="bg-indigo-50 text-indigo-600 border border-indigo-100 font-bold text-[10px] px-2 py-1 rounded-md uppercase tracking-wide">Grade 10 Ch.3</span>
+                <a href="/lab" class="text-indigo-600 font-semibold text-sm hover:text-indigo-800 transition-colors">&larr; All Labs</a>
             </div>
         </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-    <script>
-        const { Engine, Render, Runner, Bodies, Composite, Constraint, Events } = Matter;
-        const width = 700, height = 400;
-        const engine = Engine.create(), world = engine.world;
-        engine.gravity.y = 1;
-        const render = Render.create({ element: document.getElementById('canvas-container'), engine, options: { width, height, wireframes: false, background: '#ffffff' } });
-        Render.run(render);
-        const runner = Runner.create();
-        Runner.run(runner, engine);
+    </nav>
 
-        const track = Bodies.rectangle(350, 260, 500, 20, { isStatic: true, render: { fillStyle: '#94a3b8' } });
-        const cart = Bodies.rectangle(200, 235, 60, 30, { mass: 5, render: { fillStyle: '#d97706' } });
-        const weight = Bodies.circle(520, 235, 15, { mass: 2, render: { fillStyle: '#b45309' } });
-        const pulley = Bodies.circle(480, 235, 10, { isStatic: true, render: { fillStyle: '#334155' } });
-        const stringC = Constraint.create({ bodyA: cart, bodyB: weight, stiffness: 0.9, render: { strokeStyle: '#cbd5e1', lineWidth: 2 } });
-        Composite.add(world, [track, cart, weight, pulley, stringC]);
+    <!-- Main Content Area -->
+    <main class="flex-grow w-full max-w-[1100px] mx-auto px-6 py-8">
+        <h1 class="text-[22px] font-bold text-slate-900 tracking-tight mb-8">Newton's Second Law (F = ma)</h1>
 
-        let isPaused = false;
-        document.getElementById('pauseBtn').addEventListener('click', () => {
-            isPaused = !isPaused;
-            if (isPaused) { Runner.stop(runner); document.getElementById('pauseBtn').textContent = "Resume"; }
-            else { Runner.start(runner, engine); document.getElementById('pauseBtn').textContent = "Pause"; }
-        });
-        document.getElementById('resetBtn').addEventListener('click', () => {
-            Matter.Body.setPosition(cart, { x: 200, y: 235 });
-            Matter.Body.setPosition(weight, { x: 520, y: 235 });
-            Matter.Body.setVelocity(cart, { x: 0, y: 0 });
-            Matter.Body.setVelocity(weight, { x: 0, y: 0 });
-        });
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            
+            <!-- Left Column: Canvas & Buttons -->
+            <div class="lg:col-span-2 bg-white p-8 rounded-[24px] shadow-sm flex flex-col items-center">
+                <canvas id="simCanvas" width="600" height="300" class="w-full max-w-[600px] rounded-xl"></canvas>
+                
+                <div class="flex gap-4 mt-8 w-full justify-center">
+                    <button id="startBtn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-medium text-sm py-2.5 px-6 rounded-xl transition-colors">Apply Force</button>
+                    <button id="resetBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium text-sm py-2.5 px-6 rounded-xl transition-colors">Reset</button>
+                </div>
+            </div>
+            
+            <!-- Right Column: Telemetry & Controls -->
+            <div class="space-y-6">
+                
+                <!-- Telemetry Card (Dark Theme) -->
+                <div class="bg-[#1a1f2e] p-6 rounded-[24px] shadow-sm text-white">
+                    <h2 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-5">Live Telemetry</h2>
+                    
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-300">Net Force (F):</span>
+                            <div class="font-mono text-sm">
+                                <span id="statForce" class="text-emerald-400 font-semibold">20.0</span> <span class="text-slate-500 ml-2">N</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-300">Mass (m):</span>
+                            <div class="font-mono text-sm">
+                                <span id="statMass" class="text-emerald-400 font-semibold">5.0</span> <span class="text-slate-500 ml-2">kg</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-300">Velocity (v):</span>
+                            <div class="font-mono text-sm">
+                                <span id="statVel" class="text-emerald-400 font-semibold">0.00</span> <span class="text-slate-500 ml-2">m/s</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-300">Acceleration (a):</span>
+                            <div class="font-mono text-sm">
+                                <span id="statAcc" class="text-emerald-400 font-semibold">4.00</span> <span class="text-slate-500 ml-2">m/s²</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        Events.on(engine, 'afterUpdate', () => {
-            document.getElementById('statAcc').textContent = cart.acceleration.x.toFixed(2);
-        });
-    </script>
+                <!-- Controls Card (Light Theme) -->
+                <div class="bg-white p-6 rounded-[24px] shadow-sm">
+                    <h2 class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-5">Controls</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-sm mb-3">
+                                <label class="text-slate-500" for="forceInput">Applied Force:</label>
+                                <span id="forceVal" class="text-indigo-600 font-medium">20 N</span>
+                            </div>
+                            <input type="range" id="forceInput" min="0" max="100" step="5" value="20" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-3">
+                                <label class="text-slate-500" for="massInput">Object Mass:</label>
+                                <span id="massVal" class="text-indigo-600 font-medium">5 kg</span>
+                            </div>
+                            <input type="range" id="massInput" min="1" max="20" step="1" value="5" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    
+    <!-- Link to the JS logic -->
+    <script src="/js/newtons-second-law.js"></script>
 </body>
 </html>

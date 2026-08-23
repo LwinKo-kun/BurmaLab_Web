@@ -1,74 +1,75 @@
-<!-- double-pulley.html -->
+<?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/auth.php';
+require_auth();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Double Pulley System (f3a)</title>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Double Pulley System - BurmaLab</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Matter.js CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8F9FA; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        input[type=range] { accent-color: #4f46e5; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans p-6">
-    <div class="max-w-5xl mx-auto space-y-6">
-        <nav class="flex items-center justify-between">
-            <a href="/lab" class="text-sm font-semibold text-blue-600 hover:underline">&larr; Back to Modules</a>
-            <h1 class="text-xl font-bold text-slate-900">Advanced Double Pulley Lab (f3a)</h1>
-        </nav>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            <div class="md:col-span-2 bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col items-center">
-                <div id="canvas-container" class="w-full flex justify-center overflow-hidden rounded-lg border border-slate-100 bg-white"></div>
-                <div class="flex gap-4 mt-4 w-full justify-center">
-                    <button id="pauseBtn" class="px-5 py-2 bg-violet-600 text-white font-medium rounded-lg shadow hover:bg-violet-700 transition">Pause</button>
-                    <button id="resetBtn" class="px-5 py-2 bg-slate-200 text-slate-700 font-medium rounded-lg hover:bg-slate-300 transition">Reset</button>
+<body class="min-h-screen flex flex-col text-slate-800">
+    <nav class="bg-white">
+        <div class="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="/" class="text-indigo-600 font-black text-xl tracking-tight">BurmaLab</a>
+            <div class="flex items-center gap-4">
+                <span class="bg-indigo-50 text-indigo-600 border border-indigo-100 font-bold text-[10px] px-2 py-1 rounded-md uppercase tracking-wide">Grade 11 Ch.2</span>
+                <a href="/lab" class="text-indigo-600 font-semibold text-sm hover:text-indigo-800 transition-colors">&larr; All Labs</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow w-full max-w-[1100px] mx-auto px-6 py-8">
+        <h1 class="text-[22px] font-bold text-slate-900 tracking-tight mb-8">Double Pulley System & Mechanical Advantage</h1>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            
+            <!-- Canvas Simulation Area -->
+            <div class="lg:col-span-2 bg-white p-8 rounded-[24px] shadow-sm flex flex-col items-center">
+                <canvas id="simCanvas" width="600" height="400" class="w-full max-w-[600px] rounded-xl bg-slate-50 border border-slate-100 cursor-grab active:cursor-grabbing"></canvas>
+                <p class="text-xs text-slate-400 mt-3">💡 Click & drag the purple effort handle down to lift the load. Release to drop!</p>
+                
+                <div class="flex gap-4 mt-6 w-full justify-center">
+                    <button id="resetBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium text-sm py-2.5 px-6 rounded-xl transition-colors">Reset Position</button>
                 </div>
             </div>
+            
+            <!-- Telemetry & Controls -->
             <div class="space-y-6">
-                <div class="bg-slate-900 text-white p-4 rounded-xl shadow-sm">
-                    <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Live Telemetry</h2>
-                    <div class="space-y-2 text-sm font-mono">
-                        <div class="flex justify-between"><span>System Vel:</span> <span id="statVel" class="text-sky-400 font-bold">0.00</span> m/s</div>
-                        <div class="flex justify-between"><span>Acceleration:</span> <span id="statAcc" class="text-sky-400 font-bold">0.00</span> m/s²</div>
+                <div class="bg-[#1a1f2e] p-6 rounded-[24px] shadow-sm text-white">
+                    <h2 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-5">System Telemetry</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center"><span class="text-sm text-slate-300">Mechanical Advantage:</span><div class="font-mono text-sm"><span class="text-emerald-400 font-bold">2.0</span> MA</div></div>
+                        <div class="flex justify-between items-center"><span class="text-sm text-slate-300">Load Weight (W):</span><div class="font-mono text-sm"><span id="statLoad" class="text-amber-400 font-bold">0.0</span> N</div></div>
+                        <div class="flex justify-between items-center"><span class="text-sm text-slate-300">Effort Force (Fₑ):</span><div class="font-mono text-sm"><span id="statEffort" class="text-sky-400 font-semibold">0.0</span> N</div></div>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-700/50 mt-2">
+                            <span class="text-sm text-slate-300">Lift Height:</span>
+                            <div class="font-mono text-sm"><span id="statHeight" class="text-indigo-400 font-semibold">0.00</span> m</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-[24px] shadow-sm">
+                    <h2 class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-5">Parameters</h2>
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><label class="text-slate-500">Load Mass (m):</label><span id="mVal" class="text-indigo-600 font-medium">10 kg</span></div>
+                            <input type="range" id="mInput" min="2" max="40" step="2" value="10" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-    <script>
-        const { Engine, Render, Runner, Bodies, Composite, Constraint, Events } = Matter;
-        const width = 700, height = 400;
-        const engine = Engine.create(), world = engine.world;
-        engine.gravity.y = 1;
-        const render = Render.create({ element: document.getElementById('canvas-container'), engine, options: { width, height, wireframes: false, background: '#ffffff' } });
-        Render.run(render);
-        const runner = Runner.create();
-        Runner.run(runner, engine);
-
-        const p1 = Bodies.circle(300, 100, 10, { isStatic: true, render: { fillStyle: '#334155' } });
-        const p2 = Bodies.circle(450, 100, 10, { isStatic: true, render: { fillStyle: '#334155' } });
-        const mLeft = Bodies.rectangle(300, 220, 40, 40, { mass: 4, render: { fillStyle: '#7c3aed' } });
-        const mRight = Bodies.rectangle(450, 280, 40, 40, { mass: 6, render: { fillStyle: '#8b5cf6' } });
-        const stringC = Constraint.create({ bodyA: mLeft, bodyB: mRight, stiffness: 0.9, render: { strokeStyle: '#cbd5e1', lineWidth: 3 } });
-        Composite.add(world, [p1, p2, mLeft, mRight, stringC]);
-
-        let isPaused = false;
-        document.getElementById('pauseBtn').addEventListener('click', () => {
-            isPaused = !isPaused;
-            if (isPaused) { Runner.stop(runner); document.getElementById('pauseBtn').textContent = "Resume"; }
-            else { Runner.start(runner, engine); document.getElementById('pauseBtn').textContent = "Pause"; }
-        });
-        document.getElementById('resetBtn').addEventListener('click', () => {
-            Matter.Body.setPosition(mLeft, { x: 300, y: 220 });
-            Matter.Body.setPosition(mRight, { x: 450, y: 280 });
-            Matter.Body.setVelocity(mLeft, { x: 0, y: 0 });
-            Matter.Body.setVelocity(mRight, { x: 0, y: 0 });
-        });
-
-        Events.on(engine, 'afterUpdate', () => {
-            document.getElementById('statVel').textContent = Math.abs(mRight.velocity.y).toFixed(2);
-            document.getElementById('statAcc').textContent = Math.abs(mRight.acceleration.y).toFixed(2);
-        });
-    </script>
+    </main>
+    <script src="/js/double-pulley.js?v=8"></script>
 </body>
 </html>
