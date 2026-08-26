@@ -1,39 +1,51 @@
 <?php
-/**
- * Progress Overview Page
- * Simple page showing user's completed labs.
- */
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-// Ensure user is logged in
+session_start();
+header('Content-Type: application/json');
+
+// 1. Check if user is logged in
 if (empty($_SESSION['user_id'])) {
-    header('Location: /login');
+    http_response_code(401);
+    echo json_encode(['success' => false, 'message' => 'Unauthorized']);
     exit;
 }
 
-$pageTitle = 'Progress - BurmaLab';
-include __DIR__ . '/includes/head.php';
-include __DIR__ . '/includes/nav.php';
-?>
-<main class="flex-grow flex items-center justify-center py-20 px-4">
-    <div class="max-w-lg w-full bg-white p-8 rounded-3xl border border-[#CEB5EF]/40 shadow-xl">
-        <h1 class="text-3xl font-black text-slate-900 mb-4">Your Progress</h1>
-        <?php
-        // Example: count completed labs from a table `user_lab_progress`
-        try {
-            require_once __DIR__ . '/includes/db.php';
-            $stmt = $pdo->prepare('SELECT COUNT(*) FROM user_lab_progress WHERE user_id = :uid');
-            $stmt->execute(['uid' => $_SESSION['user_id']]);
-            $completed = $stmt->fetchColumn();
-        } catch (Exception $e) {
-            $completed = 0;
-        }
-        ?>
-        <p class="text-lg text-slate-600 mb-4">You have completed <strong><?php echo $completed; ?></strong> labs.</p>
-        <a href="/lab" class="inline-block w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl text-center transition">Go to Labs</a>
-    </div>
-</main>
-<?php
-include __DIR__ . '/includes/footer.php';
-?>
+require_once __DIR__ . '/../includes/db.php';
+
+// 2. Get the JSON data sent by the fetch request
+$data = json_decode(file_get_contents('php://input'), true);
+$itemType = $data['item_type'] ?? '';
+$itemIdentifier = $data['item_identifier'] ?? '';
+$userId = $_SESSION['user_id'];
+
+if (!$itemType || !$itemIdentifier) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Missing required data']);
+    exit;
+}
+
+try {
+    $pdo->beginTransaction();
+
+    // 3. Record the completed chapter/lab (INSERT IGNORE prevents duplicates)
+    $stmt = $pdo->prepare("INSERT IGNORE INTO user_progress (user_id, item_type, item_identifier) VALUES (:uid, :type, :identifier)");
+    $stmt->execute([
+        'uid' => $userId,
+        'type' => $itemType,
+        'identifier' => $itemIdentifier
+    ]);
+
+    // 4. If a new row was inserted, grant the user +20 XP
+    if ($stmt->rowCount() > 0) {
+        $xpStmt = $pdo->prepare("UPDATE user_streaks SET total_xp = total_xp + 20 WHERE user_id = :uid");
+        $xpStmt->execute(['uid' => $userId]);
+    }
+
+    $pdo->commit();
+    echo json_encode(['success' => true]);
+
+} catch (Exception $e) {
+    $pdo->rollBack();
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Database error']);
+    // Optional: error_log($e->getMessage());
+}

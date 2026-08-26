@@ -60,7 +60,12 @@ include 'includes/nav.php';
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <?php foreach ($section['items'] as $chapter): ?>
                         <?php 
-                            $chapterId = 'ch_' . $chapter['num'];
+                            // Extract grade number (e.g., "Grade 11 Mechanics" -> 11)
+                            preg_match('/\d+/', $section['label'], $matches);
+                            $gradeNum = $matches[0] ?? '0'; 
+                            
+                            // Generate unique ID like 'g11_ch_1'
+                            $chapterId = 'g' . $gradeNum . '_ch_' . $chapter['num'];
                             $isDone = $userId ? is_item_completed($pdo, $userId, 'chapter', $chapterId) : false;
                         ?>
                         <div class="p-5 bg-white rounded-2xl border <?php echo $isDone ? 'border-emerald-300 bg-emerald-50/20' : 'border-[#CEB5EF]/40'; ?> shadow-sm flex flex-col justify-between gap-4">
@@ -69,7 +74,7 @@ include 'includes/nav.php';
                                 <h4 class="font-bold text-slate-900 mt-2"><?php echo htmlspecialchars($chapter['title']); ?></h4>
                                 <p class="text-xs text-slate-500 mt-1 leading-relaxed"><?php echo htmlspecialchars($chapter['desc']); ?></p>
                             </div>
-                            
+
                             <?php if ($userId): ?>
                                 <button onclick="markChapterRead('<?php echo $chapterId; ?>', this)" 
                                         class="w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all <?php echo $isDone ? 'bg-emerald-100 text-emerald-800 cursor-default' : 'bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white border border-indigo-200'; ?>"
@@ -92,11 +97,17 @@ async function markChapterRead(chapterId, btn) {
     btn.innerText = 'Updating...';
 
     try {
-        const res = await fetch('/api/progress.php', {
+        // Clean URL to route through index.php
+        const res = await fetch('/api/progress', { 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ item_type: 'chapter', item_identifier: chapterId })
         });
+        
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        
         const data = await res.json();
 
         if (data.success) {
@@ -105,9 +116,10 @@ async function markChapterRead(chapterId, btn) {
         } else {
             btn.innerText = 'Mark as Read (+20 XP)';
             btn.disabled = false;
+            console.error('API Error:', data.message || 'Unknown error');
         }
     } catch (e) {
-        console.error(e);
+        console.error('Fetch failed:', e);
         btn.innerText = 'Error. Retry?';
         btn.disabled = false;
     }

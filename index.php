@@ -40,15 +40,16 @@ if (strpos($url, 'lab/') === 0) {
 
 // 2. Page Route Matrix
 $routes = [
-    'home'     => 'home.php',
-    'lab'      => 'lab.php',
-    'login'    => 'login.php',
-    'signup'   => 'signup.php',
-    'logout'   => 'logout.php',
-    'about'    => 'about.php',
-    'theory'   => 'theory.php',
-    'progress' => 'progress.php',
-    'settings' => 'settings.php',
+    'home'         => 'home.php',
+    'lab'          => 'lab.php',
+    'login'        => 'login.php',
+    'signup'       => 'signup.php',
+    'logout'       => 'logout.php',
+    'about'        => 'about.php',
+    'theory'       => 'theory.php',
+    'progress'     => 'progress.php',
+    'settings'     => 'settings.php',
+    'api/progress' => 'api/progress.php'
 ];
 
 // Auto route lab simulation files
