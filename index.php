@@ -71,7 +71,7 @@ if (array_key_exists($url, $routes)) {
 // 4. Handle 404 for unknown non-empty routes
 if ($url !== '' && $url !== 'index') {
     http_response_code(404);
-    $pageTitle = 'Page Not Found - BurmaLab';
+    $pageTitle = 'Page Not Found - Physics Simulations Lab';
     include 'includes/head.php';
     include 'includes/nav.php';
     ?>
@@ -89,7 +89,7 @@ if ($url !== '' && $url !== 'index') {
 }
 
 // 5. Landing Page View (Default Route: '/' or '/index')
-$pageTitle = 'BurmaLab | Interactive Physics Suite for Myanmar';
+$pageTitle = 'Physics Simulations Lab | Interactive Physics Suite for Myanmar';
 include 'includes/head.php';
 ?>
 
@@ -114,7 +114,7 @@ include 'includes/head.php';
             </h1>
 
             <p class="text-base sm:text-xl lg:text-2xl text-slate-500 max-w-3xl mx-auto font-normal leading-relaxed px-2">
-                BurmaLab connects Myanmar's mechanics curriculum to interactive Matter.js simulations — forces, motion, projectiles, and collisions in real time.
+                Physics Simulations Lab connects Myanmar's mechanics curriculum to interactive Matter.js simulations — forces, motion, projectiles, and collisions in real time.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2 sm:pt-4 w-full px-4 sm:px-0">
@@ -274,7 +274,7 @@ include 'includes/head.php';
     <section class="w-full max-w-[1440px] mx-auto px-4 sm:px-10 lg:px-16">
         <div class="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 rounded-3xl sm:rounded-[36px] p-8 sm:p-20 text-center text-white space-y-6 sm:space-y-8 shadow-2xl shadow-indigo-500/20 relative overflow-hidden">
             <h2 class="text-2xl sm:text-6xl font-black tracking-tight max-w-4xl mx-auto leading-tight">Ready to explore mechanics interactively?</h2>
-            <p class="text-slate-100 text-sm sm:text-xl max-w-2xl mx-auto opacity-90 leading-relaxed">Join Myanmar high school students building stronger physics intuition with BurmaLab.</p>
+            <p class="text-slate-100 text-sm sm:text-xl max-w-2xl mx-auto opacity-90 leading-relaxed">Join Myanmar high school students building stronger physics intuition with Physics Simulations Lab.</p>
             <div class="pt-2 sm:pt-4 flex flex-col sm:flex-row justify-center gap-3.5">
                 <?php if ($is_logged_in): ?>
                     <a href="/lab" class="w-full sm:w-auto inline-flex justify-center items-center px-8 py-4 sm:px-10 sm:py-5 rounded-2xl bg-white text-indigo-600 hover:bg-slate-50 font-extrabold text-base transition-all shadow-xl active:scale-95">Launch Labs &rarr;</a>

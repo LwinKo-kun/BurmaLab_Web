@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-$pageTitle = 'About - BurmaLab';
+$pageTitle = 'About - Physics Simulations Lab';
 $htmlClass = 'scroll-smooth';
 $bodyClass = 'bg-[#F6F6FF] text-slate-800 antialiased selection:bg-indigo-500 selection:text-white min-h-screen flex flex-col justify-between overflow-x-hidden';
 include 'includes/head.php';
@@ -18,7 +18,7 @@ include 'includes/head.php';
         <span class="text-xs font-extrabold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-4 py-1.5 rounded-full border border-indigo-200">Our Mission</span>
         <h1 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight">Physics Education for Myanmar Students</h1>
         <p class="text-lg sm:text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed">
-            BurmaLab bridges the gap between static textbook problem sets and interactive, real-time mechanics simulations — built for Grades 10–12 across Myanmar's high school curriculum.
+            Physics Simulations Lab bridges the gap between static textbook problem sets and interactive, real-time mechanics simulations — built for Grades 10–12 across Myanmar's high school curriculum.
         </p>
     </section>
 
@@ -28,7 +28,7 @@ include 'includes/head.php';
                 <span class="text-xs font-mono font-bold text-indigo-600 uppercase tracking-wider">Hands-On Discovery</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Designed for Deep Conceptual Learning</h2>
                 <p class="text-slate-500 text-base leading-relaxed">
-                    From Newton's laws to Bernoulli's equation, BurmaLab turns abstract formulas into manipulable simulations. Students adjust parameters, observe live telemetry, and build genuine spatial intuition for mechanics.
+                    From Newton's laws to Bernoulli's equation, Physics Simulations Lab turns abstract formulas into manipulable simulations. Students adjust parameters, observe live telemetry, and build genuine spatial intuition for mechanics.
                 </p>
                 <div class="grid grid-cols-2 gap-6 pt-4">
                     <div class="space-y-1 border-l-2 border-indigo-600 pl-4">
@@ -49,7 +49,7 @@ include 'includes/head.php';
 
     <section class="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 space-y-12">
         <div class="text-center max-w-2xl mx-auto space-y-3">
-            <h2 class="text-3xl sm:text-4xl font-black text-slate-900">What Powers BurmaLab</h2>
+            <h2 class="text-3xl sm:text-4xl font-black text-slate-900">What Powers Physics Simulations Lab</h2>
             <p class="text-slate-500 text-sm">Core goals behind the simulation platform.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">

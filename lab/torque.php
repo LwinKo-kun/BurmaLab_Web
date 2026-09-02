@@ -8,13 +8,13 @@ require_auth();
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torque Lab - BurmaLab</title>
+    <title>Torque Lab - Physics Simulations Lab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8F9FA; } .font-mono { font-family: 'JetBrains Mono', monospace; } input[type=range] { accent-color: #4f46e5; }</style>
 </head>
 <body class="min-h-screen flex flex-col text-slate-800">
-    <nav class="bg-white"><div class="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between"><a href="/" class="text-indigo-600 font-black text-xl tracking-tight">BurmaLab</a><div class="flex items-center gap-4"><span class="bg-indigo-50 text-indigo-600 border border-indigo-100 font-bold text-[10px] px-2 py-1 rounded-md uppercase tracking-wide">Grade 11 Ch.2</span><a href="/lab" class="text-indigo-600 font-semibold text-sm hover:text-indigo-800">&larr; All Labs</a></div></div></nav>
+    <nav class="bg-white"><div class="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between"><a href="/" class="text-indigo-600 font-black text-xl tracking-tight">Physics Simulations Lab</a><div class="flex items-center gap-4"><span class="bg-indigo-50 text-indigo-600 border border-indigo-100 font-bold text-[10px] px-2 py-1 rounded-md uppercase tracking-wide">Grade 11 Ch.2</span><a href="/lab" class="text-indigo-600 font-semibold text-sm hover:text-indigo-800">&larr; All Labs</a></div></div></nav>
     <main class="flex-grow w-full max-w-[1100px] mx-auto px-6 py-8">
         <h1 class="text-[22px] font-bold text-slate-900 tracking-tight mb-8">Torque & Equilibrium</h1>
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">

@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     }
 }
 
-$pageTitle = 'Account Settings - BurmaLab';
+$pageTitle = 'Account Settings - Physics Simulations Lab';
 include 'includes/head.php';
 include 'includes/nav.php';
 ?>

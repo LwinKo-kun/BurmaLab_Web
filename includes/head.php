@@ -1,6 +1,6 @@
 <?php
 if (!isset($pageTitle)) {
-    $pageTitle = 'BurmaLab | Interactive Physics Suite';
+    $pageTitle = 'Physics Simulations Lab | Interactive Physics Suite';
 }
 $bodyClass = $bodyClass ?? 'bg-[#F6F6FF] text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white';
 $htmlClass = $htmlClass ?? '';

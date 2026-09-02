@@ -8,7 +8,7 @@ require_auth();
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Double Pulley System - BurmaLab</title>
+    <title>Double Pulley System - Physics Simulations Lab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -20,7 +20,7 @@ require_auth();
 <body class="min-h-screen flex flex-col text-slate-800">
     <nav class="bg-white">
         <div class="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="/" class="text-indigo-600 font-black text-xl tracking-tight">BurmaLab</a>
+            <a href="/" class="text-indigo-600 font-black text-xl tracking-tight">Physics Simulations Lab</a>
             <div class="flex items-center gap-4">
                 <span class="bg-indigo-50 text-indigo-600 border border-indigo-100 font-bold text-[10px] px-2 py-1 rounded-md uppercase tracking-wide">Grade 11 Ch.2</span>
                 <a href="/lab" class="text-indigo-600 font-semibold text-sm hover:text-indigo-800 transition-colors">&larr; All Labs</a>

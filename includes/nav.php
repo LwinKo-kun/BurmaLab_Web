@@ -14,7 +14,7 @@ if (($current_page === '' || $current_page === 'index') && !$is_logged_in):
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
         <a href="/" class="flex items-center gap-2">
             <span class="bg-indigo-600 text-white p-2 rounded-xl text-sm font-black shadow-md shadow-indigo-200">⚛</span>
-            <span class="text-2xl font-black bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent select-none">BurmaLab</span>
+            <span class="text-2xl font-black bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent select-none">Physics Simulations Lab</span>
         </a>
 
         <div class="flex items-center gap-3 sm:gap-4">
@@ -33,7 +33,7 @@ else:
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
         <a href="/home" class="flex items-center gap-2.5 group">
             <span class="bg-indigo-600 text-white p-2 rounded-xl text-sm font-black shadow-md shadow-indigo-200 group-hover:scale-105 transition-transform">⚛</span>
-            <span class="text-2xl font-black bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">BurmaLab</span>
+            <span class="text-2xl font-black bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Physics Simulations Lab</span>
         </a>
 
         <!-- Desktop Navigation Links -->

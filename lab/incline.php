@@ -12,7 +12,7 @@ require_auth();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inclined Plane - BurmaLab</title>
+    <title>Inclined Plane - Physics Simulations Lab</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Fonts matching your UI -->
@@ -34,7 +34,7 @@ require_auth();
     
     <nav class="bg-white">
         <div class="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="/" class="text-indigo-600 font-black text-xl tracking-tight">BurmaLab</a>
+            <a href="/" class="text-indigo-600 font-black text-xl tracking-tight">Physics Simulations Lab</a>
             <div class="flex items-center gap-4">
                 <span class="bg-emerald-50 text-emerald-600 border border-emerald-100 font-bold text-[10px] px-2 py-1 rounded-md uppercase tracking-wide">Grade 10 Ch.3</span>
                 <a href="/lab" class="text-indigo-600 font-semibold text-sm hover:text-indigo-800 transition-colors">&larr; All Labs</a>

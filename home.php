@@ -17,7 +17,7 @@ if (isset($_SESSION['user_id'])) {
     $userStats = get_user_stats($pdo, $_SESSION['user_id']);
 }
 
-$pageTitle = 'Dashboard - BurmaLab';
+$pageTitle = 'Dashboard - Physics Simulations Lab';
 include 'includes/head.php';
 include 'includes/nav.php';
 ?>

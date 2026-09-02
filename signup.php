@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$pageTitle = 'Create Account - BurmaLab';
+$pageTitle = 'Create Account - Physics Simulations Lab';
 $bodyClass = 'bg-[#F6F6FF] text-slate-800 flex items-center justify-center min-h-screen p-4 sm:p-6 selection:bg-indigo-500 selection:text-white';
 include 'includes/head.php';
 ?>
@@ -76,7 +76,7 @@ include 'includes/head.php';
 
     <div class="text-center mb-6 sm:mb-8 relative z-10">
         <a href="/" class="bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded-2xl text-base inline-block mb-3 sm:mb-4 shadow-lg shadow-indigo-200 transition-all active:scale-95">⚛</a>
-        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Join BurmaLab</h2>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Join Physics Simulations Lab</h2>
         <p class="text-slate-500 text-xs sm:text-sm mt-1">Create your student account to access the physics sandbox</p>
     </div>
 

@@ -8,7 +8,7 @@ require_once 'includes/curriculum.php';
 require_once 'includes/progress.php';
 
 $userId = $_SESSION['user_id'] ?? null;
-$pageTitle = 'Theory Notes - BurmaLab';
+$pageTitle = 'Theory Notes - Physics Simulations Lab';
 
 include 'includes/head.php';
 include 'includes/nav.php';

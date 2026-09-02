@@ -9,7 +9,7 @@ require_once 'includes/curriculum.php';
 require_once 'includes/progress.php';
 
 $userId = $_SESSION['user_id'] ?? null;
-$pageTitle = 'Interactive Physics Labs - BurmaLab';
+$pageTitle = 'Interactive Physics Labs - Physics Simulations Lab';
 
 include 'includes/head.php';
 include 'includes/nav.php';

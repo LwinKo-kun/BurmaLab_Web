@@ -2,9 +2,9 @@
     <div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
         <div class="flex items-center gap-2">
             <span class="bg-indigo-600 text-white p-1.5 rounded-lg text-xs font-bold shadow-sm">⚛</span>
-            <span class="font-black text-slate-800 text-sm tracking-tight">BurmaLab</span>
+            <span class="font-black text-slate-800 text-sm tracking-tight">Physics Simulations Lab</span>
         </div>
-        <p class="text-center md:text-left">&copy; <?php echo date('Y'); ?> BurmaLab. Built for Myanmar high school student physics exploration.</p>
+        <p class="text-center md:text-left">&copy; <?php echo date('Y'); ?> Physics Simulations Lab. Built for Myanmar high school student physics exploration.</p>
         <div class="flex items-center gap-5 text-slate-500 font-semibold">
             <a href="/home" class="hover:text-indigo-600 transition-colors">Home</a>
             <a href="/lab" class="hover:text-indigo-600 transition-colors">Labs</a>
