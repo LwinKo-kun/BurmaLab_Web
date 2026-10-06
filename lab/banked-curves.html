@@ -1,0 +1,136 @@
+<!--
+<?php
+/*
+if (session_status() === PHP_SESSION_NONE) session_start();
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/auth.php';
+require_auth();
+*/
+?>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banked Curves Lab - Physics Simulations Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8F9FA; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        input[type=range] { accent-color: #4f46e5; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800">
+
+    <!-- Top Navigation -->
+    <nav class="bg-white border-b border-slate-100">
+        <div class="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="../index.html" class="text-indigo-600 font-black text-xl tracking-tight flex items-center gap-2">
+                <span>⚛</span>
+                <span>Physics Simulations Lab</span>
+            </a>
+            <div class="flex items-center gap-4">
+                <span class="bg-amber-50 text-amber-600 border border-amber-200 font-bold text-[10px] px-2 py-1 rounded-md uppercase tracking-wide">Grade 11 · Ch. 7</span>
+                <a href="../lab.html" class="text-indigo-600 font-semibold text-sm hover:text-indigo-800 transition-colors">&larr; All Labs</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-[1100px] mx-auto px-6 py-8">
+        <h1 class="text-[22px] font-bold text-slate-900 tracking-tight mb-8">Forces in Circular Motion: Banked Curves</h1>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            
+            <!-- Canvas Simulation Area -->
+            <div class="lg:col-span-2 bg-white p-8 rounded-[24px] shadow-sm border border-slate-100 flex flex-col items-center">
+                <canvas id="simCanvas" width="600" height="400" class="w-full max-w-[600px] rounded-xl bg-slate-50 border border-slate-200"></canvas>
+            </div>
+            
+            <!-- Telemetry & Controls Sidebar -->
+            <div class="space-y-6">
+                <!-- Advanced Telemetry -->
+                <div class="bg-[#1a1f2e] p-6 rounded-[24px] shadow-sm text-white">
+                    <h2 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-5">Advanced Telemetry</h2>
+                    <div class="space-y-3 border-b border-slate-700 pb-4 mb-4">
+                        <div class="flex justify-between">
+                            <span class="text-sm text-slate-300">Friction Force (F_f):</span>
+                            <div class="font-mono text-sm"><span id="statFriction" class="text-rose-400">0</span> N</div>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-slate-300">Normal Force (F_n):</span>
+                            <div class="font-mono text-sm"><span id="statNormal" class="text-sky-400">0</span> N</div>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-slate-300">Net Centripetal (F_c):</span>
+                            <div class="font-mono text-sm"><span id="statCentripetal" class="text-amber-400">0</span> N</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-slate-400 uppercase font-bold mb-2">Safe Speed Range</div>
+                        <div class="font-mono text-sm flex justify-between text-emerald-400">
+                            <span id="statVMin">Min: 0 m/s</span>
+                            <span id="statVMax">Max: 0 m/s</span>
+                        </div>
+                        <div id="statusAlert" class="mt-3 text-center text-xs font-bold py-2 rounded-lg bg-emerald-500/20 text-emerald-400">VEHICLE STABLE</div>
+                    </div>
+                </div>
+
+                <!-- Track Parameters -->
+                <div class="bg-white p-6 rounded-[24px] shadow-sm border border-slate-100">
+                    <h2 class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-5">Track Parameters</h2>
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <label class="text-slate-500">Vehicle Speed (v):</label>
+                                <span id="vVal" class="text-indigo-600 font-medium">15 m/s</span>
+                            </div>
+                            <input type="range" id="vInput" min="0" max="40" step="1" value="15" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <label class="text-slate-500">Bank Angle (θ):</label>
+                                <span id="thetaVal" class="text-indigo-600 font-medium">20°</span>
+                            </div>
+                            <input type="range" id="thetaInput" min="0" max="45" step="1" value="20" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <label class="text-slate-500">Friction Coeff (μ):</label>
+                                <span id="muVal" class="text-indigo-600 font-medium">0.5</span>
+                            </div>
+                            <input type="range" id="muInput" min="0.0" max="1.0" step="0.1" value="0.5" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <label class="text-slate-500">Turn Radius (r):</label>
+                                <span id="rVal" class="text-indigo-600 font-medium">50 m</span>
+                            </div>
+                            <input type="range" id="rInput" min="20" max="150" step="5" value="50" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Local Progress Recorder -->
+    <script>
+        // Records lab interaction when user adjusts parameters
+        ['vInput', 'thetaInput', 'muInput', 'rInput'].forEach(id => {
+            document.getElementById(id)?.addEventListener('input', () => {
+                const completed = JSON.parse(localStorage.getItem('burmalab_completed') || '[]');
+                if (!completed.includes('banked-curves')) {
+                    completed.push('banked-curves');
+                    localStorage.setItem('burmalab_completed', JSON.stringify(completed));
+                }
+            }, { once: true });
+        });
+    </script>
+
+    <!-- Simulation Script (Relative path) -->
+    <script src="../js/banked-curves.js"></script>
+</body>
+</html>

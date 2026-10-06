@@ -1,3 +1,4 @@
+<!--
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -7,6 +8,8 @@ require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_auth();
 ?>
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +41,7 @@ require_auth();
             <a href="/" class="text-indigo-600 font-black text-xl tracking-tight">Physics Simulations Lab</a>
             <div class="flex items-center gap-4">
                 <span class="bg-indigo-50 text-indigo-600 border border-indigo-100 font-bold text-[10px] px-2 py-1 rounded-md uppercase tracking-wide">Grade 11 Ch.1</span>
-                <a href="/lab" class="text-indigo-600 font-semibold text-sm hover:text-indigo-800 transition-colors">&larr; All Labs</a>
+                <a href="../lab.html" class="text-indigo-600 font-semibold text-sm hover:text-indigo-800 transition-colors">&larr; All Labs</a>
             </div>
         </div>
     </nav>
@@ -122,6 +125,6 @@ require_auth();
     </main>
     
     <!-- Link to the JS logic -->
-    <script src="/js/circular-motion.js"></script>
+    <script src="../js/circular-motion.js"></script>
 </body>
 </html>

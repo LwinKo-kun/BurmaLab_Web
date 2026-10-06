@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Physics Labs - Physics Simulations Lab</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--
+    <?php
+    /*
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    require_once 'includes/db.php';
+    require_once 'includes/auth.php';
+    require_auth();
+    require_once 'includes/curriculum.php';
+    require_once 'includes/progress.php';
+
+    $userId = $_SESSION['user_id'] ?? null;
+    $pageTitle = 'Interactive Physics Labs - Physics Simulations Lab';
+
+    include 'includes/head.php';
+    include 'includes/nav.php';
+    */
+    ?>
+    -->
+</head>
+<body class="bg-[#F6F6FF] text-slate-800 antialiased selection:bg-indigo-500 selection:text-white min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    <!-- Navigation Header -->
+    <header class="w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between relative z-20">
+        <a href="index.html" class="text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+            <span class="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-sm font-bold shadow-md shadow-indigo-200">⚛</span>
+            <span>BurmaLab</span>
+        </a>
+        <nav class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
+            <a href="index.html" class="hover:text-indigo-600 transition-colors">Home</a>
+            <a href="home.html" class="hover:text-indigo-600 transition-colors">Dashboard</a>
+            <a href="lab.html" class="text-indigo-600 font-bold">Labs</a>
+            <a href="theory.html" class="hover:text-indigo-600 transition-colors">Theory</a>
+            <a href="about.html" class="hover:text-indigo-600 transition-colors">About</a>
+        </nav>
+    </header>
+
+    <!-- <?php include 'includes/nav.php'; ?> -->
+
+    <div class="w-full max-w-[1440px] mx-auto px-4 sm:px-10 lg:px-16 py-8 space-y-8 sm:space-y-12 flex-grow">
+
+        <!-- Header Banner -->
+        <div class="bg-white p-6 sm:p-12 rounded-3xl sm:rounded-[32px] border border-[#CEB5EF]/45 shadow-xl shadow-indigo-100/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 sm:gap-8 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-gradient-to-br from-indigo-500/10 to-violet-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="space-y-3 z-10 max-w-2xl">
+                <span class="inline-block bg-indigo-50 text-indigo-600 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider border border-indigo-200/60">Virtual Simulations</span>
+                <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">Interactive Physics <span class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Laboratories</span></h1>
+                <p class="text-slate-500 text-sm sm:text-base leading-relaxed">Launch Matter.js simulation modules to test equations of motion, forces, and collisions in real time.</p>
+            </div>
+            <div class="bg-slate-50/90 border border-slate-200/60 p-4 sm:p-5 rounded-2xl flex items-center space-x-4 z-10 w-full md:w-auto backdrop-blur-sm shadow-sm">
+                <div class="w-3.5 h-3.5 bg-emerald-500 rounded-full animate-pulse flex-shrink-0"></div>
+                <div class="text-sm">
+                    <p class="text-slate-400 text-xs font-medium">Engine Status</p>
+                    <p class="text-slate-800 font-bold">Matter.js Ready</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Simulation Grid Section -->
+        <section class="space-y-6">
+            <div class="flex items-center justify-between border-b border-indigo-100 pb-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-indigo-600 text-white font-extrabold text-xs px-3.5 py-1.5 rounded-xl uppercase tracking-wider shadow-sm">Active Labs</span>
+                    <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Available Simulation Modules</h2>
+                </div>
+                <span class="text-xs font-mono font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-xl border border-indigo-200/60">17 Modules</span>
+            </div>
+
+            <!--
+            <?php /*
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <?php foreach ($activeLabs as $lab): ?>
+                    ...
+                <?php endforeach; ?>
+            </div>
+            */ ?>
+            -->
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+                <!-- 1. Measurement -->
+                <a href="lab/measurement.html" data-lab-slug="measurement" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">📏</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 10 · Ch 1</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Vernier & Micrometer</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Precision measurement tools, zero-error calibration, and dimensional analysis.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 2. Kinematics -->
+                <a href="lab/kinematics.html" data-lab-slug="kinematics" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">📈</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 10 · Ch 2</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">1D Kinematics</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Explore position, velocity, and acceleration curves under uniform acceleration.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 3. Projectile Motion -->
+                <a href="lab/projectile.html" data-lab-slug="projectile" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">🎯</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 10 · Ch 3</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Projectile Motion</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">2D trajectory paths, launch velocities, range optimization, and gravitational free fall.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 4. Newton's Second Law -->
+                <a href="lab/newtons-second-law.html" data-lab-slug="newtons-second-law" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">⚖️</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 10 · Ch 4</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Newton's Second Law</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Verify F = ma with variable net forces and inertial mass carts on a low-friction track.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 5. Friction -->
+                <a href="lab/friction.html" data-lab-slug="friction" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">🧱</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 10 · Ch 4</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Friction Coefficients</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Static vs kinetic friction thresholds across various material interfaces.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 6. Incline Plane -->
+                <a href="lab/incline.html" data-lab-slug="incline" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">📐</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 10 · Ch 4</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Inclined Plane</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Decompose weight into parallel and perpendicular vector components with angle sliders.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 7. Atwood Incline -->
+                <a href="lab/atwood-incline.html" data-lab-slug="atwood-incline" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">⚙️</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 10 · Ch 4</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Atwood on Incline</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Coupled dual-mass systems connected via tension cord over a low-friction pulley.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 8. Double Pulley -->
+                <a href="lab/double-pulley.html" data-lab-slug="double-pulley" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">🪢</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 10 · Ch 4</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Double Pulley System</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Mechanical advantage and kinematics of movable vs fixed pulley configurations.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 9. Work & Energy -->
+                <a href="lab/work-energy.html" data-lab-slug="work-energy" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">⚡</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 11 · Ch 5</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Work-Energy Theorem</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Kinetic energy, gravitational potential energy, and mechanical work conservation.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 10. Collisions -->
+                <a href="lab/collisions.html" data-lab-slug="collisions" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">💥</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 11 · Ch 6</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Collisions & Momentum</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Elastic vs inelastic 1D collisions with conservation of linear momentum graphs.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 11. Circular Motion -->
+                <a href="lab/circular-motion.html" data-lab-slug="circular-motion" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">🔄</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 11 · Ch 7</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Uniform Circular Motion</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Centripetal force, angular velocity, and tangential acceleration vectors.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 12. Banked Curves -->
+                <a href="lab/banked-curves.html" data-lab-slug="banked-curves" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">🏎️</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 11 · Ch 7</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Banked Curves</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Normal force resolution and safe velocity design for friction-free turns.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 13. Torque & Equilibrium -->
+                <a href="lab/torque.html" data-lab-slug="torque" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">🪓</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 12 · Ch 8</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Torque & Static Balance</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Rotational equilibrium, lever arms, and balancing moments about a pivot.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 14. Springs & SHM -->
+                <a href="lab/springs.html" data-lab-slug="springs" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">🌀</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 12 · Ch 9</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Springs & Harmonic Motion</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Hooke's Law, spring constants (k), period of oscillation, and damping forces.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 15. Standing Waves -->
+                <a href="lab/standing-waves.html" data-lab-slug="standing-waves" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">〰️</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 12 · Ch 9</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Standing Waves</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Harmonics, node/antinode spacing, resonant frequencies, and wave interference.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 16. Buoyancy -->
+                <a href="lab/buoyancy.html" data-lab-slug="buoyancy" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">⛵</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 12 · Ch 10</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Archimedes' Buoyancy</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Submerged volume displacement, fluid density comparison, and floating conditions.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- 17. Fluids -->
+                <a href="lab/fluids.html" data-lab-slug="fluids" class="bg-white hover:bg-slate-50/80 p-6 sm:p-7 rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between relative overflow-hidden">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 text-xl font-bold shadow-sm group-hover:scale-110 transition-transform">🌊</div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-100">Grade 12 · Ch 10</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 mb-2.5 transition-colors">Fluid Dynamics</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">Continuity equation, Bernoulli's principle, and laminar flow velocity profiles.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xs font-bold text-indigo-600 group-hover:translate-x-1.5 transition-transform">Launch Lab &rarr;</span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-slate-200/60 bg-white/50 backdrop-blur py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-6 text-center text-sm text-slate-400">
+            <p>&copy; 2026 Physics Simulations Lab. Built for Myanmar students.</p>
+        </div>
+    </footer>
+
+    <!-- <?php include 'includes/footer.php'; ?> -->
+
+</body>
+</html>

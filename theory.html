@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theory Notes - Physics Simulations Lab</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--
+    <?php
+    /*
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    require_once 'includes/db.php';
+    require_once 'includes/auth.php';
+    require_once 'includes/curriculum.php';
+    require_once 'includes/progress.php';
+
+    $userId = $_SESSION['user_id'] ?? null;
+    $pageTitle = 'Theory Notes - Physics Simulations Lab';
+
+    include 'includes/head.php';
+    include 'includes/nav.php';
+    */
+    ?>
+    -->
+</head>
+<body class="bg-[#F6F6FF] text-slate-800 antialiased selection:bg-indigo-500 selection:text-white min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+    <!-- Top Navigation Header -->
+    <header class="w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between relative z-20">
+        <a href="index.html" class="text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+            <span class="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-sm font-bold shadow-md shadow-indigo-200">⚛</span>
+            <span>BurmaLab</span>
+        </a>
+        <nav class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
+            <a href="index.html" class="hover:text-indigo-600 transition-colors">Home</a>
+            <a href="home.html" class="hover:text-indigo-600 transition-colors">Dashboard</a>
+            <a href="lab.html" class="hover:text-indigo-600 transition-colors">Labs</a>
+            <a href="theory.html" class="text-indigo-600 font-bold">Theory</a>
+            <a href="about.html" class="hover:text-indigo-600 transition-colors">About</a>
+        </nav>
+    </header>
+
+    <!-- <?php include 'includes/nav.php'; ?> -->
+
+    <div class="w-full max-w-[1440px] mx-auto px-4 sm:px-10 lg:px-16 py-8 space-y-8 sm:space-y-10 flex-grow">
+
+        <!-- Header Banner -->
+        <div class="bg-white p-6 sm:p-10 rounded-3xl sm:rounded-[32px] border border-[#CEB5EF]/40 shadow-xl shadow-indigo-100/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-gradient-to-br from-indigo-500/10 to-violet-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="space-y-2 z-10">
+                <span class="inline-block bg-indigo-50 text-indigo-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-indigo-200/60">Reference Manual</span>
+                <h1 class="text-2xl sm:text-4xl font-black text-slate-900">Physics Theory & <span class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Key Formulas</span></h1>
+                <p class="text-slate-500 text-sm sm:text-base max-w-2xl leading-relaxed">Essential equations and concepts for the Myanmar High School Mechanics Curriculum — Grades 10 through 12.</p>
+            </div>
+            <a href="home.html" class="bg-slate-50/80 border border-slate-200/60 px-5 py-3 rounded-2xl text-sm font-bold text-indigo-600 hover:bg-indigo-50 transition z-10 text-center">Full Curriculum Index &rarr;</a>
+        </div>
+
+        <!-- Section 1: Grade 10 Formulas -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b border-indigo-100 pb-4">
+                <span class="bg-indigo-600 text-white font-extrabold text-xs px-3.5 py-1.5 rounded-xl uppercase tracking-wider shadow-sm">Grade 10</span>
+                <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Core Formulas</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 sm:p-7 bg-white rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-900 text-lg">Kinematics & Motion (1D)</h3>
+                    <ul class="space-y-2">
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-indigo-700">v = u + at</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-indigo-700">s = ut + (1/2)at²</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-indigo-700">v² = u² + 2as</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-indigo-700">s = ((u + v) / 2) * t</li>
+                    </ul>
+                </div>
+                <div class="p-6 sm:p-7 bg-white rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-900 text-lg">Dynamics, Forces & Friction</h3>
+                    <ul class="space-y-2">
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-indigo-700">ΣF = ma (Newton's 2nd Law)</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-indigo-700">W = mg</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-indigo-700">f_s(max) = μ_s * N (Static Friction)</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-indigo-700">f_k = μ_k * N (Kinetic Friction)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Grade 11 Formulas -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b border-violet-100 pb-4">
+                <span class="bg-violet-600 text-white font-extrabold text-xs px-3.5 py-1.5 rounded-xl uppercase tracking-wider shadow-sm">Grade 11</span>
+                <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Core Formulas</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 sm:p-7 bg-white rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-900 text-lg">Work, Energy & Momentum</h3>
+                    <ul class="space-y-2">
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-violet-700">W = F * d * cos(θ)</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-violet-700">KE = (1/2)mv²  |  PE = mgh</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-violet-700">p = mv  |  J = Δp = F_avg * Δt</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-violet-700">m1u1 + m2u2 = m1v1 + m2v2 (Conservation of Momentum)</li>
+                    </ul>
+                </div>
+                <div class="p-6 sm:p-7 bg-white rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-900 text-lg">Circular Motion & Gravitation</h3>
+                    <ul class="space-y-2">
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-violet-700">a_c = v² / r = ω²r</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-violet-700">F_c = (m * v²) / r</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-violet-700">v_ideal = √(r * g * tan(θ)) (Banked Turn)</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-violet-700">F_g = G * (m1 * m2) / r²</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Grade 12 Formulas -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b border-purple-100 pb-4">
+                <span class="bg-purple-600 text-white font-extrabold text-xs px-3.5 py-1.5 rounded-xl uppercase tracking-wider shadow-sm">Grade 12</span>
+                <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Core Formulas</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 sm:p-7 bg-white rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-900 text-lg">Torque, SHM & Waves</h3>
+                    <ul class="space-y-2">
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-purple-700">τ = r * F * sin(θ)  (Στ = 0 for Equilibrium)</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-purple-700">F_s = -kx (Hooke's Law)</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-purple-700">T = 2π * √(m / k) (Spring SHM Period)</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-purple-700">v = f * λ  |  f_n = (n * v) / (2L) (Harmonics)</li>
+                    </ul>
+                </div>
+                <div class="p-6 sm:p-7 bg-white rounded-2xl sm:rounded-[28px] border border-[#CEB5EF]/40 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-900 text-lg">Fluid Mechanics</h3>
+                    <ul class="space-y-2">
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-purple-700">P = F / A  |  P = P_0 + ρgh</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-purple-700">F_b = ρ_fluid * V_disp * g (Archimedes' Principle)</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-purple-700">A1 * v1 = A2 * v2 (Continuity Equation)</li>
+                        <li class="font-mono text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-purple-700">P + (1/2)ρv² + ρgh = constant (Bernoulli)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Syllabus Map -->
+        <section class="space-y-6 pt-4">
+            <div class="flex items-center gap-3 border-b border-indigo-100 pb-4">
+                <span class="bg-indigo-600 text-white font-extrabold text-xs px-3.5 py-1.5 rounded-xl uppercase tracking-wider shadow-sm">Syllabus Map</span>
+                <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Chapter Overview</h2>
+            </div>
+
+            <!-- Grade 10 Chapters -->
+            <div class="mb-8">
+                <p class="text-sm font-bold text-slate-600 mb-4">Grade 10 Mechanics — Chapters 1–4</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div id="card-g10_ch_1" class="p-5 bg-white rounded-2xl border border-[#CEB5EF]/40 shadow-sm flex flex-col justify-between gap-4">
+                        <div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 border-indigo-200 px-2 py-0.5 rounded border">Ch. 1</span>
+                            <h4 class="font-bold text-slate-900 mt-2">Physical Quantities & Measurement</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Units, dimensional analysis, vernier calipers, and uncertainty.</p>
+                        </div>
+                        <button onclick="markChapterRead('g10_ch_1', this)" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white border border-indigo-200">
+                            Mark as Read (+20 XP)
+                        </button>
+                    </div>
+
+                    <div id="card-g10_ch_2" class="p-5 bg-white rounded-2xl border border-[#CEB5EF]/40 shadow-sm flex flex-col justify-between gap-4">
+                        <div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 border-indigo-200 px-2 py-0.5 rounded border">Ch. 2</span>
+                            <h4 class="font-bold text-slate-900 mt-2">Kinematics (Motion in 1D)</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Displacement, instantaneous velocity, and kinematic equations.</p>
+                        </div>
+                        <button onclick="markChapterRead('g10_ch_2', this)" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white border border-indigo-200">
+                            Mark as Read (+20 XP)
+                        </button>
+                    </div>
+
+                    <div id="card-g10_ch_3" class="p-5 bg-white rounded-2xl border border-[#CEB5EF]/40 shadow-sm flex flex-col justify-between gap-4">
+                        <div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 border-indigo-200 px-2 py-0.5 rounded border">Ch. 3</span>
+                            <h4 class="font-bold text-slate-900 mt-2">Vectors & Projectile Motion</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">2D motion decomposition, launch angles, and ballistic paths.</p>
+                        </div>
+                        <button onclick="markChapterRead('g10_ch_3', this)" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white border border-indigo-200">
+                            Mark as Read (+20 XP)
+                        </button>
+                    </div>
+
+                    <div id="card-g10_ch_4" class="p-5 bg-white rounded-2xl border border-[#CEB5EF]/40 shadow-sm flex flex-col justify-between gap-4">
+                        <div>
+                            <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 border-indigo-200 px-2 py-0.5 rounded border">Ch. 4</span>
+                            <h4 class="font-bold text-slate-900 mt-2">Newton's Laws of Motion</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Inertia, F = ma, action-reaction pairs, and friction forces.</p>
+                        </div>
+                        <button onclick="markChapterRead('g10_ch_4', this)" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white border border-indigo-200">
+                            Mark as Read (+20 XP)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grade 11 Chapters -->
+            <div class="mb-8">
+                <p class="text-sm font-bold text-slate-600 mb-4">Grade 11 Mechanics — Chapters 5–7</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div id="card-g11_ch_5" class="p-5 bg-white rounded-2xl border border-[#CEB5EF]/40 shadow-sm flex flex-col justify-between gap-4">
+                        <div>
+                            <span class="text-[10px] font-mono font-bold text-violet-600 bg-violet-50 border-violet-200 px-2 py-0.5 rounded border">Ch. 5</span>
+                            <h4 class="font-bold text-slate-900 mt-2">Work, Energy & Power</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Kinetic and potential energy forms, conservative forces, and power.</p>
+                        </div>
+                        <button onclick="markChapterRead('g11_ch_5', this)" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white border border-indigo-200">
+                            Mark as Read (+20 XP)
+                        </button>
+                    </div>
+
+                    <div id="card-g11_ch_6" class="p-5 bg-white rounded-2xl border border-[#CEB5EF]/40 shadow-sm flex flex-col justify-between gap-4">
+                        <div>
+                            <span class="text-[10px] font-mono font-bold text-violet-600 bg-violet-50 border-violet-200 px-2 py-0.5 rounded border">Ch. 6</span>
+                            <h4 class="font-bold text-slate-900 mt-2">Linear Momentum & Impulse</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Elastic and inelastic collisions, impulse, and conservation laws.</p>
+                        </div>
+                        <button onclick="markChapterRead('g11_ch_6', this)" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white border border-indigo-200">
+                            Mark as Read (+20 XP)
+                        </button>
+                    </div>
+
+                    <div id="card-g11_ch_7" class="p-5 bg-white rounded-2xl border border-[#CEB5EF]/40 shadow-sm flex flex-col justify-between gap-4">
+                        <div>
+                            <span class="text-[10px] font-mono font-bold text-violet-600 bg-violet-50 border-violet-200 px-2 py-0.5 rounded border">Ch. 7</span>
+                            <h4 class="font-bold text-slate-900 mt-2">Circular Motion & Gravitation</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Centripetal acceleration, banked highway curves, and orbital motion.</p>
+                        </div>
+                        <button onclick="markChapterRead('g11_ch_7', this)" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white border border-indigo-200">
+                            Mark as Read (+20 XP)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grade 12 Chapters -->
+            <div class="mb-8">
+                <p class="text-sm font-bold text-slate-600 mb-4">Grade 12 Mechanics — Chapters 8–10</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div id="card-g12_ch_8" class="p-5 bg-white rounded-2xl border border-[#CEB5EF]/40 shadow-sm flex flex-col justify-between gap-4">
+                        <div>
+                            <span class="text-[10px] font-mono font-bold text-purple-600 bg-purple-50 border-purple-200 px-2 py-0.5 rounded border">Ch. 8</span>
+                            <h4 class="font-bold text-slate-900 mt-2">Rotational Equilibrium & Torque</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Moments of force, static balance conditions, and center of gravity.</p>
+                        </div>
+                        <button onclick="markChapterRead('g12_ch_8', this)" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white border border-indigo-200">
+                            Mark as Read (+20 XP)
+                        </button>
+                    </div>
+
+                    <div id="card-g12_ch_9" class="p-5 bg-white rounded-2xl border border-[#CEB5EF]/40 shadow-sm flex flex-col justify-between gap-4">
+                        <div>
+                            <span class="text-[10px] font-mono font-bold text-purple-600 bg-purple-50 border-purple-200 px-2 py-0.5 rounded border">Ch. 9</span>
+                            <h4 class="font-bold text-slate-900 mt-2">Oscillations & SHM</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Spring-mass systems, pendulums, frequency, and harmonic waves.</p>
+                        </div>
+                        <button onclick="markChapterRead('g12_ch_9', this)" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white border border-indigo-200">
+                            Mark as Read (+20 XP)
+                        </button>
+                    </div>
+
+                    <div id="card-g12_ch_10" class="p-5 bg-white rounded-2xl border border-[#CEB5EF]/40 shadow-sm flex flex-col justify-between gap-4">
+                        <div>
+                            <span class="text-[10px] font-mono font-bold text-purple-600 bg-purple-50 border-purple-200 px-2 py-0.5 rounded border">Ch. 10</span>
+                            <h4 class="font-bold text-slate-900 mt-2">Fluid Mechanics</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Hydrostatic pressure, Archimedes' buoyant force, and Bernoulli flow.</p>
+                        </div>
+                        <button onclick="markChapterRead('g12_ch_10', this)" class="w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white border border-indigo-200">
+                            Mark as Read (+20 XP)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Client-Side Progress Management Script -->
+    <script>
+        function getReadChapters() {
+            return JSON.parse(localStorage.getItem('burmalab_read_chapters') || '[]');
+        }
+
+        function markChapterRead(chapterId, btn) {
+            let readChapters = getReadChapters();
+            if (!readChapters.includes(chapterId)) {
+                readChapters.push(chapterId);
+                localStorage.setItem('burmalab_read_chapters', JSON.stringify(readChapters));
+            }
+            updateButtonUI(btn, true);
+            const card = document.getElementById(`card-${chapterId}`);
+            if (card) {
+                card.classList.add('border-emerald-300', 'bg-emerald-50/20');
+                card.classList.remove('border-[#CEB5EF]/40');
+            }
+        }
+
+        function updateButtonUI(btn, isDone) {
+            if (isDone) {
+                btn.className = 'w-full py-2.5 px-3 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-800 cursor-default';
+                btn.innerText = '✓ Completed (+20 XP)';
+                btn.disabled = true;
+            }
+        }
+
+        // Initialize cards on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const readChapters = getReadChapters();
+            readChapters.forEach(chapterId => {
+                const card = document.getElementById(`card-${chapterId}`);
+                if (card) {
+                    card.classList.add('border-emerald-300', 'bg-emerald-50/20');
+                    card.classList.remove('border-[#CEB5EF]/40');
+                    const btn = card.querySelector('button');
+                    if (btn) updateButtonUI(btn, true);
+                }
+            });
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-slate-200/60 bg-white/50 backdrop-blur py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-6 text-center text-sm text-slate-400">
+            <p>&copy; 2026 Physics Simulations Lab. Built for Myanmar students.</p>
+        </div>
+    </footer>
+
+    <!-- <?php include 'includes/footer.php'; ?> -->
+
+</body>
+</html>
